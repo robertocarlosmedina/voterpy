@@ -28,10 +28,10 @@ Port 3000: already connected.
 
 The server is under state active.
 ``` -->
-#### 2º - The Manager app
+### The Manager app
 <!-- Examples:
     - [http://localhost:3000/Facebook.html]()
     - [http://localhost:3000/Google.html]()
     - [http://localhost:3000/ArqRedes.html]() -->
 
-#### 3º - The Voter app
+### The Voter app

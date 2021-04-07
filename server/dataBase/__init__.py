@@ -1,8 +1,9 @@
 import json
 
 class Candidates:
-    def __init__(self):
+    def __init__(self, path):
         self.data = None
+        self.path = path
         self.readONJson()
     
     def post(self, newOne):
@@ -21,16 +22,16 @@ class Candidates:
         return self.data
     
     def readONJson(self):
-        with open("./server/dataBase/candidates.json") as json_file:
+        with open(self.path) as json_file:
             self.data = json.load(json_file)
         json_file.close()
 
-    def writeONJson(self, filename="./server/dataBase/candidates.json"):
-        with open(filename,'w') as f:
+    def writeONJson(self):
+        with open(self.path,'w') as f:
             json.dump(self.data, f, indent=4)
         f.close()
 
 # test
 
-# cand = Candidates()
-# print(cand.get())
+cand = Candidates("./server/dataBase/candidates.json")
+print(cand.get())

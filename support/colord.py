@@ -1,6 +1,6 @@
 from enum import Enum
 
-
+# class Enum that store all the color's that are used in this project
 class color(Enum):
     blue=(0, 0, 255)
     blue3=(15, 159, 191)
@@ -21,7 +21,6 @@ class color(Enum):
     grey4 = (191, 191, 191)
     red=(255, 0, 0)
     red1= (242, 15, 15)
-
 
 # this is to return the RGB value of the color
 def rgbColor(co):

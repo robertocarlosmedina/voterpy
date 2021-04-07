@@ -1,17 +1,7 @@
 [
     {
-        "id": 6,
-        "nome": "noss someos",
-        "voteCounted": 0
-    },
-    {
-        "id": 3,
-        "nome": "eu",
-        "voteCounted": 0
-    },
-    {
-        "id": 3,
-        "nome": "eu",
+        "id":1,
+        "name":"Ana",
         "voteCounted": 0
     }
 ]

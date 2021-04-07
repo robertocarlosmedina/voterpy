@@ -31,5 +31,6 @@ class Candidates:
         f.close()
 
 # test
+
 # cand = Candidates()
 # print(cand.get())

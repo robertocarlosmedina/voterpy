@@ -3,7 +3,7 @@ Application that allows the client to poll and control votes related to an elect
 
 <!-- # Main objective -->
 
-## Dependences/libraries use:
+## Dependences / libraries use:
 The libraries that i use are the following one's:
 ```shell
     import socket

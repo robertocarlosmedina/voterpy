@@ -23,6 +23,7 @@ class Server:
         # running the server and wait for connections
         while True:
             connectionSocket, addr = self.serverSocket.accept()
+            # to take note that the value 1024 is to limite the memori size off content transfered, so it can be incrise to more data trafic
             sentence = connectionSocket.recv(1024).decode()
             connectionSocket.send(str(self.readingRequest(sentence)).encode())
             connectionSocket.close()
@@ -51,6 +52,7 @@ class Server:
                     atributes = sentence[1].split(",")
                     return value(atributes[0],atributes[1],atributes[2])
 
+# Running the server
 server = Server()
 server.runServer()
 

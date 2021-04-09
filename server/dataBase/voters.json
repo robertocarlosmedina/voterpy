@@ -1,17 +1,12 @@
 [
     {
-        "id": 1,
-        "name": "ricardo",
+        "id": "eeddba118185024mFdAOiz",
+        "name": "Mauro",
         "voted": true
     },
     {
-        "id": 2,
-        "name": "ricardo",
-        "voted":true
-    },
-    {
-        "id": 3,
-        "name": "ricrdo",
-        "voted": true
+        "id": "cjamtA211174311907KzPoMCs",
+        "name": "Medina",
+        "voted": false
     }
 ]

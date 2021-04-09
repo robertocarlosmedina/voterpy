@@ -1,1 +1,12 @@
-[]
+[
+    {
+        "id": 1,
+        "name": "verify",
+        "voted": false
+    },
+    {
+        "id": 3,
+        "name": "Roberto",
+        "voted": true
+    }
+]

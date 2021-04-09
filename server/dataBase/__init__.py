@@ -9,23 +9,54 @@ class JsonFiles:
     
     # method post to store in the json file
     def post(self, newOne):
-        self.data.append(newOne)
+        newOne = newOne.split(",")
+        newDict = {}
+        i = 0
+        for atribute in newOne:
+            atribute = atribute.split("=")
+            newDict[atribute[0]]=self.verType(atribute[1])
+            i+=1
+        self.data.append(newDict)
         self.writeONJson()
+        return True
+    
+    # Method to convert to string or to boolean according to string variable
+    def verType(self, item):
+        try:
+            return int(item)
+        except:
+            pass
+        
+        if item == "True" or item == "False":
+            return bool(item)
+        else:
+            return item
 
     # method similar to put, to change a item in the json file
     def putById(self, id, atribute, newValue):
-        self.data[id][atribute] = newValue
-        self.writeONJson()
+        for data in self.data:
+            if data["id"]==int(id):
+                data[atribute] = newValue
+                self.writeONJson()
+                return True
+        return False
     
     # method to delete an item in the json file
     def delete(self, id):
-        self.data.pop(id)
-        self.writeONJson()
+        i = 0
+        for data in self.data:
+            if data["id"] == int(id):
+                self.data.pop(i)
+                self.writeONJson()
+                return True
+            i+=1
+        return False
     
     # method to delete all the items in the json file
     def deleteAll(self):
         self.data = []
         self.writeONJson()
+        return True
 
     # method to get all the data in the json file
     def get(self):
@@ -33,7 +64,10 @@ class JsonFiles:
 
     # method to get a specific data in the json file
     def getById(self, id):
-        return self.data[id]
+        for data in self.data:
+            if data["id"]==int(id):
+                return data
+        return None
     
     # method to read all the items in the json file
     def readONJson(self):

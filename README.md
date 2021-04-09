@@ -6,15 +6,32 @@ Application that allows the client to poll and control votes related to an elect
 ## Dependences / libraries use:
 The libraries that i use are the following one's:
 ```shell
-    import socket
-    import request
-    import Thread
-    import pygame
-    import os
+    $ import socket
+    $ import request
+    $ import Thread
+    $ import pygame
+    $ import json
+    $ import os
 ```
 ## Running & Debugging
-### The Web Server
+The project can be executed in multi-form.The Server Socket, the Manager and the Voter app can be executed at the same time
+because they where implemented by threads. The other class / componnents in the project can be executed and tested alone.
+The following sub-tittle will show how execute the application: 
 
+### The Server Socket,  The Manager and The Voter app
+```shell
+    $ python3 main.py server manager voter
+```
+Note: The order of execution does not import
+### The Server Socket
+```shell
+    $ python3 main.py server
+```
 ### The Manager app
-
+```shell
+    $ python3 main.py manager
+```
 ### The Voter app
+```shell
+    $ python3 main.py voter
+```

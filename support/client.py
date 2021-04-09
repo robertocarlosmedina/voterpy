@@ -19,7 +19,7 @@ class Client:
         clientSocket.close()
         return self.message
     
-cli  = Client()
+
 
 # _______ SOME EXAMPLE'S IN EXECUTION ___________
 
@@ -74,20 +74,25 @@ def checkingBoolean(string):
     for letter in aux:
         string += letter
     return string
+def convertingToDict(message):
+    allData = []
+    dt = [data for data in message[1:-1].split(",")]
+    allData = []
+    som = ""
+    for data in dt:
+        if re.search('}', data, re.IGNORECASE):
+            som +=data
+            som = checkingBoolean(som)
+            allData.append(json.loads(changing(som)))
+            som = ""
+        else:
+            som += data+","
+    
+    return allData
 
-dt = [data for data in cli.serverConectAndSend("voters/get")[1:-1].split(",")]
-allData = []
-som = ""
-for data in dt:
-    if re.search('}', data, re.IGNORECASE):
-        som +=data
-        som = checkingBoolean(som)
-        allData.append(json.loads(changing(som)))
-        som = ""
-    else:
-        som += data+","
-        
-print(type(allData[1]))
+cli  = Client()
+allData = convertingToDict(cli.serverConectAndSend("voters/get"))
+print(allData[1])
 
 
 

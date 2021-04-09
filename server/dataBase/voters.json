@@ -7,17 +7,11 @@
     {
         "id": 2,
         "name": "ricardo",
-        "voted": true
+        "voted":true
     },
     {
         "id": 3,
-        "name": "ricardo",
+        "name": "ricrdo",
         "voted": true
-    },
-    {
-        "id": 4,
-        "name": "ricardo",
-        "voted": true,
-        "age": 18
     }
 ]

@@ -1,4 +1,6 @@
 from socket import *
+import json
+import re
 
 class Client:
     serverName = 'localhost'
@@ -38,25 +40,56 @@ print("- voter.json")
 # print(cli.serverConectAndSend("voters/delete 3"))
 
 # To be finished
+# dictc=json.loads(cli.serverConectAndSend("voters/get"))
 
-# dt = [data for data in cli.serverConectAndSend("voters/get")[1:-1].split(", ")]
-# count = 1
-# allData = []
-# som = ""
-# for data in dt:
-#     if count <= 3:
-#         if count != 3:
-#             som += data+", "
-#         else:
-#             som += data
-#     else:
-#         print(som)
-#         allData.append(dict(som))
-#         count = 0
-#         som = ""
-#     count += 1
+def changing(string):
+    newString = ''
+    for i in string:
+        if re.search('"', i, re.IGNORECASE):
+            newString += "'"
+        elif re.search("'", i, re.IGNORECASE):
+            newString += '"'
+        else:
+            newString += i
+    return newString
 
-# print(allData)
+def checkingBoolean(string):
+    true, false="True","False"
+    aux = [letter for letter in string]
+    if re.search(true, string, re.IGNORECASE):
+        index = string.index(true)
+        string = string.split()
+        for letter in true:
+            aux[index]=letter.lower()
+            index+=1
+
+    elif re.search(false, string, re.IGNORECASE):
+        index = string.index(false)
+        string = string.split()
+        for letter in false:
+            aux[index]=letter.lower()
+            index+=1
+    
+    string = ''
+    for letter in aux:
+        string += letter
+    return string
+
+dt = [data for data in cli.serverConectAndSend("voters/get")[1:-1].split(",")]
+allData = []
+som = ""
+for data in dt:
+    if re.search('}', data, re.IGNORECASE):
+        som +=data
+        som = checkingBoolean(som)
+        allData.append(json.loads(changing(som)))
+        som = ""
+    else:
+        som += data+","
+        
+print(type(allData[1]))
+
+
 
 
 

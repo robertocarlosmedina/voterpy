@@ -38,3 +38,11 @@ Note: The order of execution does not import
     $ python3 main.py voter
 ```
 Note: The other class / componnents in the project can be executed and tested alone.
+
+## Code Of Conduct
+This project implement the [Contributor Covenant Code of Conduct](https://github.com/RobertoCarlosMedina/voter-app/blob/main/CODE_OF_CONDUCT.md), read it before any contribution.
+
+## MIT Licence
+This projet implement the [MIT Licence](https://github.com/RobertoCarlosMedina/voter-app/blob/main/LICENSE), please read it before use this project.
+
+Copyright (c) 2021 Roberto Carlos

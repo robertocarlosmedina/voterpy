@@ -15,7 +15,8 @@ The libraries that i use are the following one's:
 ```
 ## Running & Debugging
 The project can be executed in multi-form.The Server Socket, the Manager and the Voter app can be executed at the same time
-because they where implemented by threads. The other class / componnents in the project can be executed and tested alone.
+because they where implemented by threads.
+<p></p>
 The following sub-tittle will show how execute the application: 
 
 ### The Server Socket,  The Manager and The Voter app
@@ -35,3 +36,4 @@ Note: The order of execution does not import
 ```shell
     $ python3 main.py voter
 ```
+Note: The other class / componnents in the project can be executed and tested alone.

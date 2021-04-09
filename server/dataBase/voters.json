@@ -3,5 +3,21 @@
         "id": 1,
         "name": "ricardo",
         "voted": true
+    },
+    {
+        "id": 2,
+        "name": "ricardo",
+        "voted": true
+    },
+    {
+        "id": 3,
+        "name": "ricardo",
+        "voted": true
+    },
+    {
+        "id": 4,
+        "name": "ricardo",
+        "voted": true,
+        "age": 18
     }
 ]

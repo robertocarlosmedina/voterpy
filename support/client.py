@@ -27,21 +27,40 @@ print("- candidates.json")
 # print(cli.serverConectAndSend("candidates/putById 10,voteCounted,12"))
 # print(cli.serverConectAndSend("candidates/getById 10"))
 # print(cli.serverConectAndSend("candidates/delete 3"))
-print(cli.serverConectAndSend("candidates/get"))
+# [print(data) for data in cli.serverConectAndSend("candidates/get")]
 
 ## working on the voters json
 print("\n")
 print("- voter.json")
-# print(cli.serverConectAndSend("voters/post name=ricardo,voted=False"))
+# print(cli.serverConectAndSend("voters/post name=ricardo,voted=False,age=18"))
 # print(cli.serverConectAndSend("voters/putById 1,name,verify"))
 # print(cli.serverConectAndSend("voters/getById 10"))
 # print(cli.serverConectAndSend("voters/delete 3"))
-print(cli.serverConectAndSend("voters/get"))
+
+# To be finished
+
+# dt = [data for data in cli.serverConectAndSend("voters/get")[1:-1].split(", ")]
+# count = 1
+# allData = []
+# som = ""
+# for data in dt:
+#     if count <= 3:
+#         if count != 3:
+#             som += data+", "
+#         else:
+#             som += data
+#     else:
+#         print(som)
+#         allData.append(dict(som))
+#         count = 0
+#         som = ""
+#     count += 1
+
+# print(allData)
 
 
 
-
-# _______ THE REQUEST METHODS POSSIBLE ______
+# _______ THE POSSIBLE  REQUEST METHODS ______
 
 # request = "jsonFileName/get"
 # request = "jsonFileName/getById id"

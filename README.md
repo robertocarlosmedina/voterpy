@@ -1,6 +1,6 @@
 <h1 align="center">Voter app</h1>
 <br></br>
-<h2 align="center">Description</h2>
+<h2>Description</h2>
 Application that allows the client to poll and control votes related to an election. 
 
 <!-- # Main objective -->

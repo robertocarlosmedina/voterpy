@@ -5,11 +5,18 @@ class JsonFiles:
     def __init__(self, path):
         self.data = None
         self.path = path
+        self.idCandidates = 1
+        self.idVoters = 1
         self.readONJson()
     
     # method post to store in the json file
     def post(self, newOne):
         newOne = newOne.split(",")
+        if self.path == "./server/dataBase/voters.json":
+            newOne.insert(0,"id="+str(self.idVoters))
+        else: 
+            newOne.insert(0,"id="+str(self.idCandidates))
+
         newDict = {}
         i = 0
         for atribute in newOne:
@@ -74,18 +81,30 @@ class JsonFiles:
         with open(self.path) as json_file:
             self.data = json.load(json_file)
         json_file.close()
+        
+        # putting the id starting in zero
+        self.idCandidates = self.idVoters = 1
+
+        # verify in what is the value of the last  id
+        for _ in self.data:
+            if self.path == "./server/dataBase/voters.json":
+                self.idVoters += 1
+            else: 
+                self.idCandidates += 1
 
     # method to write the changes on the json file
     def writeONJson(self):
         with open(self.path,'w') as f:
             json.dump(self.data, f, indent=4)
         f.close()
+        self.readONJson()
 
     # method to change the directory of the json file, or change the json storage
     def changeJsonPath(self, newPath):
         self.path = newPath
         self.readONJson()
         
-# cand = JsonFiles("./server/dataBase/candidates.json")
-# cand.deleteAll()
-# print(cand.get())
+# cand = JsonFiles("./server/dataBase/voters.json")
+# # cand.deleteAll()
+# print(cand.idCandidates)
+# print(cand.path)

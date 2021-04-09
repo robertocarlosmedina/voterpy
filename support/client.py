@@ -43,9 +43,9 @@ print(cli.serverConectAndSend("voters/get"))
 
 # _______ THE REQUEST METHODS POSSIBLE ______
 
-# request = "voters/get"
-# request = "voters/getById id"
-# request = "voters/post atribute1=value,atribute2=value,atribute3=value"
-# request = "voters/putById id,atribute,value"
-# request = "voters/delete id"
-# request = "voters/deleteAll"
+# request = "jsonFileName/get"
+# request = "jsonFileName/getById id"
+# request = "jsonFileName/post atribute1=value,atribute2=value,atribute3=value"
+# request = "jsonFileName/putById id,atribute,value"
+# request = "jsonFileName/delete id"
+# request = "jsonFileName/deleteAll"

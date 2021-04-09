@@ -1,4 +1,4 @@
-<h1 align="center">Voter app<h1>
+<h1 align="center">Voter app</h1>
 ## Description
 Application that allows the client to poll and control votes related to an election. 
 

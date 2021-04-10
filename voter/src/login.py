@@ -22,8 +22,8 @@ class Login:
         line = self.font.render('Voterpy', True, Color.white3.value)
         self.screen.blit(line, (self.screen_size[0]/2-size[0]/2, 30))
 
-        size = pygame.font.Font.size(self.font1, 'Manager-App')
-        line = self.font1.render('Manager-App', True, Color.white.value)
+        size = pygame.font.Font.size(self.font1, 'Voter App')
+        line = self.font1.render('Voter App', True, Color.white.value)
         self.screen.blit(line, (self.screen_size[0]/2-size[0]/2, 70))
 
         self.drawBoxLogin()

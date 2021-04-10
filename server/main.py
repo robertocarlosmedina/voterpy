@@ -55,4 +55,3 @@ class Server:
 # Running the server
 server = Server()
 server.runServer()
-

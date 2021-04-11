@@ -17,7 +17,7 @@ pygame.display.set_caption("Manager App")
 links = {"start": Start(screen, screen_size), "login": Login(screen, screen_size),\
         "homePage":HomePage(screen, screen_size)\
     }
-current_layout = "start"
+current_layout = "login"
 
 # clock = pygame.time.Clock()
 

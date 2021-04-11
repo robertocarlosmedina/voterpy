@@ -37,7 +37,7 @@ class Textinput:
         pygame.draw.rect(screen, self.color, self.input_rect, 2)
         text_surface = self.base_font.render(self.text, True, (255, 255, 255))
         size = pygame.font.Font.size(self.base_font, str(self.text))
-        screen.blit(text_surface, (screen_size[0]/2-size[0]/2, int(self.input_rect.y+5)))
+        screen.blit(text_surface, (screen_size[0]/2-size[0]/2, int(self.input_rect.y+9)))
         self.input_rect.w = max(340, text_surface.get_width() + 10)
         return self.text
     

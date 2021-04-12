@@ -13,6 +13,7 @@ The libraries that i use are the following one's:
     $ import pygame
     $ import json
     $ import os
+    $ import re
 ```
 ## Running & Debugging
 The project can be executed in multi-form.The Server Socket, the Manager and the Voter app can be executed at the same time

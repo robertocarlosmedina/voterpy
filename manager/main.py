@@ -17,20 +17,24 @@ pygame.display.set_caption("Manager App")
 links = {"start": Start(screen, screen_size), "login": Login(screen, screen_size),\
         "homePage":HomePage(screen, screen_size)\
     }
+    
 current_layout = "login"
+events = None
 
 # clock = pygame.time.Clock()
 
 while True:
-    for event in pygame.event.get():
+    events = pygame.event.get()
+    for event in events:
         if event.type == QUIT:
             exit()
 
         elif event.type == pygame.KEYDOWN:
             if pygame.key.get_pressed()[K_KP_ENTER]:
                 exit()
+            # print (event.unicode)
 
     screen.fill(Color.grey4.value)
-    current_layout = links[current_layout].run()
+    current_layout = links[current_layout].run(events)
     # clock.tick(60)
     pygame.display.update()

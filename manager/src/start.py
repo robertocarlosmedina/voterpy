@@ -12,7 +12,7 @@ class Start:
         self.delay = self.highCircle  = self.count = 0
 
     # Method that control this class
-    def run(self):
+    def run(self, event):
         size = pygame.font.Font.size(self.font, 'Voterpy')
         line = self.font.render('Voterpy', True, Color.white3.value)
         self.screen.blit(line, (self.screen_size[0]/2-size[0]/2, (self.screen_size[1]/2-size[1]/2)-40))

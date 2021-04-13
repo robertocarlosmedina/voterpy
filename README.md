@@ -26,7 +26,7 @@ The following sub-tittle will show how execute the application:
     $ python3 main.py server manager voter
 ```
 Note: The order of execution does not matters 
-### The Server Socket
+### [The Server Socket](https://github.com/RobertoCarlosMedina/voterpy/tree/main/server)
 ```shell
     $ python3 main.py server
 ```

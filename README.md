@@ -30,11 +30,11 @@ Note: The order of execution does not matters
 ```shell
     $ python3 main.py server
 ```
-### The Manager app
+### [The Manager app](https://github.com/RobertoCarlosMedina/voterpy/tree/main/manager)
 ```shell
     $ python3 main.py manager
 ```
-### The Voter app
+### [The Voter app](https://github.com/RobertoCarlosMedina/voterpy/tree/main/voter)
 ```shell
     $ python3 main.py voter
 ```

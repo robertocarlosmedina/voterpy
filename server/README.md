@@ -21,7 +21,7 @@ This commands can be use to get all data from the server, and the menssage sent 
 ```shell
     $ connectingToServer("voters/get")
 ```
-The logic is like: message = "voters/get" if we split the message in "/" we have "voters" and "get", what means that the
+The logic is like: message = "voters/get" if we split the message in "/" we have <bold>"voters"</bold> and <bold>"get"</bold>, what means that the
 data base is voters and the request method is get.
 
 ### - GetById

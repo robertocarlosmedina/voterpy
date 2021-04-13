@@ -25,7 +25,7 @@ The following sub-tittle will show how execute the application:
 ```shell
     $ python3 main.py server manager voter
 ```
-Note: The order of execution does not import
+Note: The order of execution does not matters 
 ### The Server Socket
 ```shell
     $ python3 main.py server

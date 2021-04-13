@@ -1,22 +1,30 @@
 [
     {
-        "id": 1,
-        "name": "sonia",
-        "voteCounted": 0
+        "id": "vxajHf117414613156MvrFdad",
+        "firstName": "Roberto",
+        "lastName": "Medinaage",
+        "age": 21,
+        "color": "red"
     },
     {
-        "id": 2,
-        "name": "sonia",
-        "voteCounted": 0
+        "id": "eacdab121157178472agvTNIF",
+        "firstName": "Raffaele",
+        "lastName": "Fiorilloage",
+        "age": 21,
+        "color": "green"
     },
     {
-        "id": 3,
-        "name": "sonia",
-        "voteCounted": 0
+        "id": "abaabb133901316116DCfNuVr",
+        "firstName": "S\u00f3nia",
+        "lastName": "Martinsage",
+        "age": 19,
+        "color": "grey"
     },
     {
-        "id": 4,
-        "name": "sonia",
-        "voteCounted": 0
+        "id": "deafff1411831714276HLefPll",
+        "firstName": "Rodrigos",
+        "lastName": "santos",
+        "age": 19,
+        "color": "blue"
     }
 ]

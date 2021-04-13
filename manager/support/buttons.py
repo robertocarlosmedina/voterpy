@@ -17,7 +17,7 @@ def verticalButtonsDisplay(screen, buttons, y, position, box_dim, mouse_pos, act
             pygame.draw.rect(screen, Color.grey.value, button_box)
             line = font.render(button, True, Color.white.value)
         else:
-            pygame.draw.rect(screen, Color.grey.value, button_box, 2)
+            pygame.draw.rect(screen, Color.white.value, button_box, 2)
             line = font.render(button, True, Color.white.value)
         
         if active == button:

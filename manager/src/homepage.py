@@ -1,19 +1,21 @@
 import pygame
 from support.color import Color
-from src.homeComponnents import *
+from src.homeComponnents import ObjectRepresentation
 from support.buttons import verticalButtonsDisplay
 
 # class that draw the home screen
 class HomePage:
+
     def __init__(self, screen, screen_size):
         self.screen, self.screen_size = screen, screen_size
+        self.objt = ObjectRepresentation(screen, screen_size)
         self.font = pygame.font.SysFont("arial", 35)
         self.font1 = pygame.font.SysFont("arial", 11)
         self.font2 = pygame.font.SysFont("arial", 25)
-        self.surface = pygame.Surface((200,350))
+        self.surface = pygame.Surface((230,350))
         self.surface.fill(Color.grey3.value)
-        self.buttons = {"Register":newCandidateRegistration,"Candidates":viewCandidatesOnRegister,\
-                        "Voters":viewVotersOnRegister,"Count Votes":countVotes,"Poll Info":pollInfo}
+        self.buttons = {"Register":self.objt.newCandidateRegistration,"Candidates":self.objt.viewCandidatesOnRegister,\
+                        "Voters":self.objt.viewVotersOnRegister,"Count Votes":self.objt.countVotes,"Poll Info":self.objt.pollInfo}
         self.active = ''
         self.mouse_pos = None
         self.events = None
@@ -32,8 +34,9 @@ class HomePage:
         line = self.font1.render('Manager-App', True, Color.white.value)
         self.screen.blit(line, (self.screen_size[0]/2+225-size[0]/2, 70))
         # Bliting the surface and the line
-        self.screen.blit(self.surface,(self.screen_size[0]/2+280-150,110))
-        pygame.draw.line(self.screen, Color.grey1.value, (40, 110),(420, 110), 2)
+        self.screen.blit(self.surface,(self.screen_size[0]/2+280-165,110))
+        pygame.draw.rect(self.screen, Color.white.value, pygame.Rect(self.screen_size[0]/2+280-165,110,230, 350), 2)
+        pygame.draw.line(self.screen, Color.white3.value, (40, 110),(420, 110), 2)
 
         # Calling method that draw the screen content according to the buttons
         self.drawbuttonContent()
@@ -57,6 +60,6 @@ class HomePage:
                 size = pygame.font.Font.size(self.font2, key)
                 line = self.font2.render(key, True, Color.white.value)
                 self.screen.blit(line, (self.screen_size[0]/2-230-size[0]/2, 80))
-                value(self.events, self.mouse_pos)
+                self.active=value(self.events, self.mouse_pos)
 
                 

@@ -2,7 +2,7 @@ from support.buttons import verticalButtonsDisplay
 import pygame
 from support.color import Color
 from support.buttons import verticalButtonsDisplay
-from support.inputBoxs import drawInputBoxs
+from support.inputBoxs import drawInputBoxs, verifyInput
 from support.client import Client
 
 # Class tha dispkay the login screen 
@@ -51,7 +51,7 @@ class Login:
              pygame.font.SysFont("arial", 25))
         
         if self.active == "Login":
-            if self.verifyInput():
+            if verifyInput(self.inputBoxs):
                 self.sendToServer()
                 self.refreshInputsAndAtributes()
             self.active = ''
@@ -82,13 +82,6 @@ class Login:
         for key in self.inputBoxs.keys():
             self.inputBoxs[key][0] = ""
             self.inputBoxs[key][1] = False
-
-    # Method that verify all the inputs
-    def verifyInput(self):
-        for value in self.inputBoxs.values():
-            if value[0] == "":
-                return False
-        return True
     
     # Method that connect and send the message to the server
     def sendToServer(self):

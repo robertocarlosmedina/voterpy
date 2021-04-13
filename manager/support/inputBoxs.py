@@ -23,7 +23,7 @@ def drawInputBoxs(screen,inputBoxs,input_limit,events,mouse_pos,y_start, x_start
                 pygame.draw.line(screen, Color.grey1.value, (x_start+boxDim[0]/2+sizeInfo[0]/2 , y_start+10),\
                                                          (x_start+boxDim[0]/2+sizeInfo[0]/2, y_start+30), 2)
         else:
-            boxText_surface = pygame.font.SysFont("arial", 12).render(key, True, Color.red1.value)
+            boxText_surface = pygame.font.SysFont("arial", 12).render(key, True, Color.red2.value)
         size = pygame.font.Font.size(pygame.font.SysFont("arial", 12), key)
         screen.blit(boxText_surface, (x_start+boxDim[0]/2-size[0]/2,y_start-15))
 
@@ -55,7 +55,18 @@ def drawInputBoxs(screen,inputBoxs,input_limit,events,mouse_pos,y_start, x_start
             if event.type == pygame.KEYDOWN and boxInfo[1]:
                 if event.key==pygame.K_BACKSPACE:
                     inputBoxs[key][0] = inputBoxs[key][0][:-1]
+                elif event.key==pygame.K_SPACE:
+                    pass
                 elif((len(inputBoxs[key][0])<=input_limit)):
                     inputBoxs[key][0] += event.unicode
     
     return inputBoxs
+
+# Method that verify all the inputs
+def verifyInput(inputBoxs):
+    for value in inputBoxs.values():
+        if value[0] == "" or value[0] == " " or len(value[0])<2:
+            return False
+    return True
+# Method that Remove the space in the strings
+# def 

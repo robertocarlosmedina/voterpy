@@ -16,7 +16,7 @@ The libraries that i use are the following one's:
 ```
 ## Commands that the server will responde:
 
-### Get
+### - Get
 This commands can be use to get all data from the server, and the menssage sent relative to this commands would be like:
 ```shell
     $ connectingToServer("voters/get")
@@ -24,7 +24,7 @@ This commands can be use to get all data from the server, and the menssage sent 
 The logic is like: message = "voters/get" if we split the message in "/" we have "voters" and "get", what means that the
 data base is voters and the request method is get.
 
-### GetById
+### - GetById
 This commands has the same function as the Get, but it differentiates in the fact that it will return a specific value from the server
 that matches the specified id.
 ```shell
@@ -33,7 +33,7 @@ that matches the specified id.
 The logic is like: message = "voters/get" if we split the message in "/" we have "voters", "get" and "foqwfojqwjfo1221ij1221", what means that the
 data base is voters, the request method is getById and the is "foqwfojqwjfo1221ij1221".
 
-### PutById
+### - PutById
 This commands will change a value already stored on the server according to the id.
 ```shell
     $ serverConectAndSend("voters/putById irhfirh32391eqweqw,name,Roberto")
@@ -42,7 +42,7 @@ The logic is like: message = "voters/putById irhfirh32391eqweqw,name,Roberto" if
 and "irhfirh32391eqweqw,name,Roberto" what means that the data base is voters, the request method is putById where the id is "irhfirh32391eqweqw",
 the atribuit that will be change is "name" and the new value is ""Roberto.
 
-### Post
+### - Post
 This commands will store a new value in the server's data base.
 ```shell
     $ connectingToServer("voters/post atribute1=value,atribute2=value,atribute3=value")
@@ -51,7 +51,7 @@ The logic is like: message = "voters/post atribute1=value,atribute2=value,atribu
 and "atribute1=value,atribute2=value,atribute3=value" what means that the data base is voters, the request method is post, and the atributes and value
 are the ones that are passed like showed in this string "atribute1=value,atribute2=value,atribute3=value".
 
-### Delete
+### - Delete
 This commands will delete an value store in the server's data bases.
 ```shell
     $ connectingToServer("voters/delete eewqfqwfqwgehre45t56261")
@@ -60,7 +60,7 @@ The logic is like: message = "voters/delete id" if we split the message in "/" w
 and "eewqfqwfqwgehre45t56261" what means that the data base is voters, the request method is delete, and the value to be deleted is
 the one how was the id "eewqfqwfqwgehre45t56261".
 
-### DeleteAll
+### - DeleteAll
 This commands will delete all the value stored in a data base in the server.
 ```shell
     $ connectingToServer("voters/deleteAll)

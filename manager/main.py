@@ -18,7 +18,7 @@ links = {"start": Start(screen, screen_size), "login": Login(screen, screen_size
         "homePage":HomePage(screen, screen_size)\
     }
 
-current_layout = "login"
+current_layout = "homePage"
 events = None
 
 # clock = pygame.time.Clock()

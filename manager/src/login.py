@@ -29,11 +29,12 @@ class Login:
     def run(self, events):
         self.mouse_pos = pygame.mouse.get_pos()
         self.events = events
-
+        
+        # Bliting on the screen title name
         size = pygame.font.Font.size(self.font, 'Voterpy')
         line = self.font.render('Voterpy', True, Color.white3.value)
         self.screen.blit(line, (self.screen_size[0]/2-size[0]/2, 30))
-
+        # Bliting on the screen app name
         size = pygame.font.Font.size(self.font1, 'Manager-App')
         line = self.font1.render('Manager-App', True, Color.white.value)
         self.screen.blit(line, (self.screen_size[0]/2-size[0]/2, 70))

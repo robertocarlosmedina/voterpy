@@ -1,3 +1,4 @@
+from typing import List
 import pygame
 from support.client import Client
 from support.inputBoxs import drawInputBoxs, verifyInput
@@ -37,13 +38,14 @@ class ObjectRepresentation:
         if self.active == "Register":
             if verifyInput(self.inputBoxs):
                 self.connectionSent = self.sendToServer(f"candidates/post firstName={self.inputBoxs['First Name'][0]},lastName={self.inputBoxs['Lat Name'][0]},\
-age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]}")
+age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},vouterCounts=0")
                 self.connectionMessage()
                 self.refreshInputsAndAtributes()
             self.active = ''          
         
         self.supportToBlitErrorAndSuccessMessage()
         if self.success:
+            self.success = False
             return "Candidates"
         else:
             return "Register"
@@ -84,13 +86,16 @@ age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]}")
     # Method that will refresh all the atributes
     def refreshInputsAndAtributes(self):
         self.active = ""
+        self.response = None
         for key in self.inputBoxs.keys():
             self.inputBoxs[key][0] = ""
             self.inputBoxs[key][1] = False
 
     def viewCandidatesOnRegister(self,events, mouse_pos):
         self.events, self.mouse_pos = events, mouse_pos
-        self.connectionSent = self.sendToServer("candidates/get")
+        # to get connect whit server just one time 
+        if type(self.response) != list or len(self.response)==0 or self.response == None:
+            self.connectionSent = self.sendToServer("candidates/get")
         y, x =170,60
         count = 0
         if self.connectionSent:

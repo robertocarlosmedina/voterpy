@@ -14,7 +14,7 @@ class Client:
         clientSocket = socket(AF_INET, SOCK_STREAM)
         clientSocket.connect((self.serverName, self.serverPort))
         clientSocket.send(request.encode())
-        modifiedSentence = clientSocket.recv(1024)
+        modifiedSentence = clientSocket.recv(4096)
         self.message = modifiedSentence.decode()
         clientSocket.close()
         return self.message if self.message == "False" or self.message == "True" or self.message == "None" else self.convertingToDict()
@@ -29,6 +29,7 @@ class Client:
             else:
                 newString += i
         return newString
+
 
     def checkingBoolean(self,string):
         true, false="True","False"

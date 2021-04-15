@@ -24,7 +24,7 @@ class Server:
         while True:
             connectionSocket, addr = self.serverSocket.accept()
             # to take note that the value 1024 is to limite the memori size off content transfered, so it can be incrise to more data trafic
-            sentence = connectionSocket.recv(1024).decode()
+            sentence = connectionSocket.recv(4096).decode()
             connectionSocket.send(str(self.readingRequest(sentence)).encode())
             connectionSocket.close()
         

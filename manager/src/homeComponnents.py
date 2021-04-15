@@ -1,4 +1,3 @@
-from typing import List
 import pygame
 from support.client import Client
 from support.inputBoxs import drawInputBoxs, verifyInput
@@ -99,35 +98,31 @@ age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},vouterCounts=0
         y, x =170,60
         count = 0
         if self.connectionSent:
-            for element in self.response:
+            for element in self.response: # this will display the candidates on the screen according to the list
                 y1,x1=y,x
+                pygame.draw.rect(self.screen, Color.grey3.value, pygame.Rect(x1, y1, 100, 100))
                 for key, value in element.items():
-                    if key != "id" and key != "color":
-                        pygame.draw.rect(self.screen, Color.white.value, pygame.Rect(x1, y1, 100, 40))
+                    if key != "id" and key != "color" and key != "voteCounts":
                         text_surface = pygame.font.SysFont("arial", 12).render(str(value), True, Color.grey1.value)
                         size = pygame.font.Font.size(pygame.font.SysFont("arial", 12), str(value))
                         self.screen.blit(text_surface, (x1+100/2-size[0]/2,y1+10))
                         y1 +=20
-                        count +=1
-                if count ==3:
-                    y += 60
-                    x = 60
-                    count =0
+                count +=1
+                if count == 3: # check if is time to jump to new line and draw more candidates painel
+                    y += 110
+                    x = 70
+                    count = 0
                 else:
                     x += 110
-
         return "Candidates"
 
     def viewVotersOnRegister(self,events, mouse_pos):
-        print("All Voters")
         return "Voters"
 
     def countVotes(self,events, mouse_pos):
-        print("Count Votes")
         return "Count Votes"
 
     def pollInfo(self,events, mouse_pos):
-        print("Poll Info")
         return "Poll Info"
 
     # Method that will send the message to the server

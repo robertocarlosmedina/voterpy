@@ -37,7 +37,7 @@ class ObjectRepresentation:
         if self.active == "Register":
             if verifyInput(self.inputBoxs):
                 self.connectionSent = self.sendToServer(f"candidates/post firstName={self.inputBoxs['First Name'][0]},lastName={self.inputBoxs['Lat Name'][0]},\
-age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},vouterCounts=0")
+age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},voterCounts=0")
                 self.connectionMessage()
                 self.refreshInputsAndAtributes()
             self.active = ''          
@@ -95,14 +95,16 @@ age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},vouterCounts=0
         # to get connect whit server just one time 
         if type(self.response) != list or len(self.response)==0 or self.response == None:
             self.connectionSent = self.sendToServer("candidates/get")
-        y, x =170,60
+        y, x =145,70
         count = 0
         if self.connectionSent:
             for element in self.response: # this will display the candidates on the screen according to the list
                 y1,x1=y,x
-                pygame.draw.rect(self.screen, Color.grey3.value, pygame.Rect(x1, y1, 100, 100))
+                pygame.draw.rect(self.screen, Color.green.value, pygame.Rect(x1, y1, 100, 100))
+                pygame.draw.rect(self.screen, Color.white.value, pygame.Rect(x1, y1, 100, 100),2)
+                # pygame.draw.rect(self.screen, Color.white.value, pygame.Rect(x1+2, y1+2, 98, 98),2)
                 for key, value in element.items():
-                    if key != "id" and key != "color" and key != "voteCounts":
+                    if key != "id" and key != "color" and key != "voterCounts":
                         text_surface = pygame.font.SysFont("arial", 12).render(str(value), True, Color.grey1.value)
                         size = pygame.font.Font.size(pygame.font.SysFont("arial", 12), str(value))
                         self.screen.blit(text_surface, (x1+100/2-size[0]/2,y1+10))

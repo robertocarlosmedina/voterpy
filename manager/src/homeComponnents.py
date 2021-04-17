@@ -101,13 +101,17 @@ age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},voterCounts=0"
             for element in self.response: # this will display the candidates on the screen according to the list
                 y1,x1=y,x
                 pygame.draw.rect(self.screen, Color.green.value, pygame.Rect(x1, y1, 100, 100))
-                pygame.draw.rect(self.screen, Color.white.value, pygame.Rect(x1, y1, 100, 100),2)
+                pygame.draw.rect(self.screen, Color.grey1.value, pygame.Rect(x1, y1, 100, 100),2)
                 # pygame.draw.rect(self.screen, Color.white.value, pygame.Rect(x1+2, y1+2, 98, 98),2)
                 for key, value in element.items():
                     if key != "id" and key != "color" and key != "voterCounts":
-                        text_surface = pygame.font.SysFont("arial", 12).render(str(value), True, Color.grey1.value)
-                        size = pygame.font.Font.size(pygame.font.SysFont("arial", 12), str(value))
-                        self.screen.blit(text_surface, (x1+100/2-size[0]/2,y1+10))
+                        if key == "age":
+                            text_surface = pygame.font.SysFont("arial", 13).render(str(value)+" years old", True, Color.black1.value)
+                            size = pygame.font.Font.size(pygame.font.SysFont("arial", 13), str(value)+" years old")
+                        else:
+                            text_surface = pygame.font.SysFont("arial", 13).render(str(value), True, Color.black1.value)
+                            size = pygame.font.Font.size(pygame.font.SysFont("arial", 13), str(value))
+                        self.screen.blit(text_surface, (x1+100/2-size[0]/2,y1+25))
                         y1 +=20
                 count +=1
                 if count == 3: # check if is time to jump to new line and draw more candidates painel

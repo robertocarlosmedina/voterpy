@@ -50,6 +50,7 @@ class Login:
         self.active = verticalButtonsDisplay(self.screen, self.components,330,(225, 337),(250, 40), self.mouse_pos,self.active,\
              pygame.font.SysFont("arial", 25))
         
+        # verify the input when submited
         if self.active == "Login":
             if verifyInput(self.inputBoxs):
                 self.sendToServer()
@@ -57,7 +58,7 @@ class Login:
             self.active = ''
 
             return "homePage" if self.connectionSent else self.messageNotSentError()
-        
+        # show to error message in a period of time
         if self.error:
             if self.count < 350:
                 return self.messageNotSentError()

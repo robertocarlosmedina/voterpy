@@ -1,12 +1,10 @@
 [
     {
-        "id": "eeddba118185024mFdAOiz",
-        "name": "Mauro",
-        "voted": true
-    },
-    {
-        "id": "cjamtA211174311907KzPoMCs",
-        "name": "Medina",
+        "id": "acdbab117411532310orbqucy",
+        "firstName": "Roberto",
+        "lastName": "Medina",
+        "pollCode": "243rwf",
+        "codeId": 1234124,
         "voted": false
     }
 ]

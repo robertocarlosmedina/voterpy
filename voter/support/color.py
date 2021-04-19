@@ -23,6 +23,7 @@ class Color(Enum):
     grey4=(57, 58, 59)
     red=(255, 0, 0)
     red1= (242, 15, 15)
+    red2= (255, 25, 25)
 
 # this is to return the RGB value of the color
 def rgbColor(co):

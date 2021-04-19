@@ -2,47 +2,31 @@
     {
         "id": "vxajHf117414613156MvrFdad",
         "firstName": "Roberto",
-        "lastName": "Medinaage",
+        "lastName": "Medina",
         "age": 21,
         "color": "red"
     },
     {
         "id": "eacdab121157178472agvTNIF",
         "firstName": "Raffaele",
-        "lastName": "Fiorilloage",
+        "lastName": "Fiorillo",
         "age": 21,
         "color": "green"
     },
     {
         "id": "kipaar1313603131931KhAOluG",
-        "firstName": "jifofjoiw",
-        "lastName": "jweoqwfio",
+        "firstName": "Ana",
+        "lastName": "Carla",
         "age": 121,
         "color": "32",
         "voterCounts": 0
     },
     {
         "id": "cBcmAp1411524229045tylcJPg",
-        "firstName": "2fqwf",
-        "lastName": "wefqwef",
+        "firstName": "Josias",
+        "lastName": "Suares",
         "age": 213,
         "color": "32",
-        "voterCounts": 0
-    },
-    {
-        "id": "mbhvbz1514405216058DqpUCjB",
-        "firstName": "wfeqfe",
-        "lastName": "wfqwfe",
-        "age": "13",
-        "color": "33",
-        "voterCounts": 0
-    },
-    {
-        "id": "rytigd161248826220sjycpaQ",
-        "firstName": "qwfwefqw",
-        "lastName": "weqfwefwqe",
-        "age": 123,
-        "color": "wqfweqfqew",
         "voterCounts": 0
     }
 ]

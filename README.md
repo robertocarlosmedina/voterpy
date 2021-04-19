@@ -1,4 +1,4 @@
-<h1 align="center">Voter app</h1>
+<h1 align="center">VoterPy</h1>
 <h2>Description</h2>
 Application that allows the client to poll and control votes related to an election. 
 

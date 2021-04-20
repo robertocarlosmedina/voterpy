@@ -9,8 +9,10 @@ class HomePage:
         self.screen, self.screen_size = screen, screen_size
         self.font = pygame.font.SysFont("arial", 40)
         self.font1 = pygame.font.SysFont("arial", 12)
-        self.surface = pygame.Surface((500,280))
+        self.surface = pygame.Surface((500,200))
+        self.surface1 = pygame.Surface((520,240))
         self.surface.fill(Color.grey1.value)
+        self.surface1.fill(Color.grey1.value)
         self.components = ["Vote"]
         self.active = ''
         self.events = None
@@ -36,7 +38,8 @@ class HomePage:
         self.active = verticalButtonsDisplay(self.screen, self.components,400,(225, 417),(250, 60), self.mouse_pos,self.active,\
                                                 pygame.font.SysFont("arial", 25))
         # Drawing the surface on the screen
-        self.screen.blit(self.surface,(self.screen_size[0]/2-250, self.screen_size[1]/2-140))
+        self.screen.blit(self.surface1,(self.screen_size[0]/2-260, self.screen_size[1]/2-120))
+        self.screen.blit(self.surface,(self.screen_size[0]/2-250, self.screen_size[1]/2-100))
         return "homePage"
     
     # Method that show all the candidates
@@ -44,31 +47,36 @@ class HomePage:
         # to get connect whit server just one time 
         if type(self.response) != list or len(self.response)==0 or self.response == None:
             self.connectionSent = self.sendToServer("candidates/get")
-        y, x =145,70
+        y, x =0,0
         count = 0
         if self.connectionSent:
             for element in self.response: # this will display the candidates on the screen according to the list
                 y1,x1=y,x
-                pygame.draw.rect(self.surface, Color.green.value, pygame.Rect(x1, y1, 100, 100))
-                pygame.draw.rect(self.surface, Color.grey1.value, pygame.Rect(x1, y1, 100, 100),2)
-                # pygame.draw.rect(self.screen, Color.white.value, pygame.Rect(x1+2, y1+2, 98, 98),2)
+                pygame.draw.rect(self.surface, Color.green.value, pygame.Rect(self.screen_size[0]/2-325, y1, 450, 40))
+                pygame.draw.rect(self.surface, Color.grey2.value, pygame.Rect(self.screen_size[0]/2-325, y1, 450, 40),2)
+                pygame.draw.rect(self.surface, Color.black1.value, pygame.Rect(self.screen_size[0]/2+75, y1+10, 20, 20),2)
+                # if self.mouse_pos[0] in range(int(self.screen_size[0]/2+75),int(self.screen_size[0]/2+75+20)) and\
+                #     self.mouse_pos[1] in range(y1+10, y1+30):
+                #     self.response[count]["voted"]=True
+
                 for key, value in element.items():
                     if key != "id" and key != "color" and key != "voterCounts"and key != "age":
                         if key == "age":
-                            text_surface = pygame.font.SysFont("arial", 13).render(str(value)+" years old", True, Color.black1.value)
-                            size = pygame.font.Font.size(pygame.font.SysFont("arial", 13), str(value)+" years old")
+                            text_surface = pygame.font.SysFont("arial", 15).render(str(value)+" years old", True, Color.black1.value)
+                            size = pygame.font.Font.size(pygame.font.SysFont("arial", 15), str(value)+" years old")
                         else:
-                            text_surface = pygame.font.SysFont("arial", 13).render(str(value), True, Color.black1.value)
-                            size = pygame.font.Font.size(pygame.font.SysFont("arial", 13), str(value))
-                        self.surface.blit(text_surface, (x1+100/2-size[0]/2,y1+25))
-                        y1 +=20
-                # count +=1
+                            text_surface = pygame.font.SysFont("arial", 15).render(str(value), True, Color.black1.value)
+                            size = pygame.font.Font.size(pygame.font.SysFont("arial", 15), str(value))
+                        self.surface.blit(text_surface, (x1+150/2-size[0]/2,y1+size[1]))
+                        x1 +=5+size[0]
+                count +=1
                 # if count == 3: # check if is time to jump to new line and draw more candidates painel
                 #     y += 110
                 #     x = 70
                 #     count = 0
                 # else:
-                x += 110
+                y += 45
+        print(self.response)
 
     def sendToServer(self, message):
         try:

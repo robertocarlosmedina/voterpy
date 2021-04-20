@@ -4,7 +4,15 @@
         "firstName": "Roberto",
         "lastName": "Medina",
         "pollCode": "243rwf",
-        "codeId": 1234124,
+        "codeId": 123,
+        "voted": true
+    },
+    {
+        "id": "acdbab1174115323r2310orbcy",
+        "firstName": "Carlos",
+        "lastName": "Medina",
+        "pollCode": "243r45wf",
+        "codeId": 222,
         "voted": false
     }
 ]

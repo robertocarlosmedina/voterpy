@@ -46,25 +46,58 @@ class Login:
         # verify the input when submited
         if self.active == "Registe":
             if verifyInput(self.inputBoxs):
-                self.sendToServer()
+                if not self.checkIfUserAlreadyExist():
+                    self.sendToServer()
                 self.refreshInputsAndAtributes()
             self.active = ''
 
             return "homePage" if self.connectionSent else self.messageNotSentError()
         # show to error message in a period of time
         if self.error:
-            if self.count < 350:
+            if self.count < 550:
                 return self.messageNotSentError()
             else:
                 self.error = False
                 self.count = 0
 
         return "login"
+
+    # checkif the user already exist
+    def checkIfUserAlreadyExist(self):
+        isThis = False
+        try:
+            dados = self.client.connectingToServer("voters/get")
+            for dado in dados:
+                for key, value in dado.items():
+                    # verify if this codeId is already user by an user
+                    if(key == 'codeId' and int((self.inputBoxs["Your code/Id."][0])) == value):
+                        return True
+            return False                
+        except:
+            return False
+
+    # Method that will check if the user loged in is already voted
+    # def checkIfUserIsAlreadyVoted(self):
+    #     isThis = False
+    #     try:
+    #         dados = self.client.connectingToServer("voters/get")
+    #         for dado in dados:
+    #             for key, value in dado.items():
+    #                 # verify if this is user
+    #                 if(key == 'codeId'and int((self.inputBoxs["Your code/Id."][0])) == value):
+    #                     isThis = True
+    #                 # verify if the user is voted
+    #                 if(key == "voted" and isThis and value):
+    #                     return True
+    #         return False                
+    #     except:
+    #         return False
+
     # Method to show error
     def messageNotSentError(self):
         self.error = True
-        text_surface = pygame.font.SysFont("arial", 12).render("Error while making login.", True, Color.red1.value)
-        size = pygame.font.Font.size(pygame.font.SysFont("arial", 12), "Error while making login.")
+        text_surface = pygame.font.SysFont("arial", 12).render("Error while making login or code/Id already exist.", True, Color.red1.value)
+        size = pygame.font.Font.size(pygame.font.SysFont("arial", 12), "Error while making login or code/Id already exist.")
         self.screen.blit(text_surface, (self.screen_size[0]/2-size[0]/2,390))
         self.count += 1
         return "login"

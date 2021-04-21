@@ -18,6 +18,7 @@ class HomePage:
         self.events = None
         self.response = None
         self.mouse_pos = None
+        self.votePos = None
         
     def run(self,events):
         self.events = events
@@ -49,15 +50,18 @@ class HomePage:
             self.connectionSent = self.sendToServer("candidates/get")
         y, x =0,0
         count = 0
+        
         if self.connectionSent:
             for element in self.response: # this will display the candidates on the screen according to the list
                 y1,x1=y,x
+                click = pygame.mouse.get_pressed(3)
                 pygame.draw.rect(self.surface, Color.green.value, pygame.Rect(self.screen_size[0]/2-325, y1, 450, 40))
                 pygame.draw.rect(self.surface, Color.grey2.value, pygame.Rect(self.screen_size[0]/2-325, y1, 450, 40),2)
                 pygame.draw.rect(self.surface, Color.black1.value, pygame.Rect(self.screen_size[0]/2+75, y1+10, 20, 20),2)
-                # if self.mouse_pos[0] in range(int(self.screen_size[0]/2+75),int(self.screen_size[0]/2+75+20)) and\
-                #     self.mouse_pos[1] in range(y1+10, y1+30):
-                #     self.response[count]["voted"]=True
+                if self.mouse_pos[0] in range(int(self.screen_size[0]/2+100+75),int(self.screen_size[0]/2+100+75+20)) and\
+                    self.mouse_pos[1] in range(int(self.screen_size[1]/2-100)+y1+10, int(self.screen_size[1]/2-100)+y1+30)  \
+                    and click[0]==1:
+                    self.votePos = element
 
                 for key, value in element.items():
                     if key != "id" and key != "color" and key != "voterCounts"and key != "age":
@@ -76,7 +80,8 @@ class HomePage:
                 #     count = 0
                 # else:
                 y += 45
-        print(self.response)
+        
+        print(self.votePos)
 
     def sendToServer(self, message):
         try:

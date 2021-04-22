@@ -19,7 +19,7 @@ class HomePage:
         self.response = None
         self.mouse_pos = None
         self.voteChoice = None
-        self.choice = ()
+        self.choice = None
 
     def run(self,events):
         self.events = events
@@ -42,6 +42,11 @@ class HomePage:
         # Drawing the surface on the screen
         self.screen.blit(self.surface1,(self.screen_size[0]/2-260, self.screen_size[1]/2-120))
         self.screen.blit(self.surface,(self.screen_size[0]/2-250, self.screen_size[1]/2-100))
+
+        if self.choice != None:
+            pygame.draw.line(self.screen, Color.red1.value, (self.choice[0]-3,self.choice[1]-2),(self.choice[2]+2, self.choice[3]+2), 5)
+            pygame.draw.line(self.screen, Color.red1.value, (self.choice[2]+3,self.choice[1]-2),(self.choice[0]-2, self.choice[3]+2), 5)
+        
         return "homePage"
     
     # Method that show all the candidates
@@ -60,15 +65,23 @@ class HomePage:
                 pygame.draw.rect(self.surface, Color.grey2.value, pygame.Rect(self.screen_size[0]/2-325, y1, 450, 40),2)
                 pygame.draw.rect(self.surface, Color.black1.value, pygame.Rect(self.screen_size[0]/2+75, y1+10, 20, 20),2)
                 
-                if self.voteChoice:
-                    self.choice = pygame.draw.line(self.surface, Color.red1.value, ((self.screen_size[0]/2+100+75),int(self.screen_size[1]/2-100)+y1+10),\
-                            (int(self.screen_size[0]/2+100+75+20),(int(self.screen_size[1]/2-100)+y1+30)), 2)
-                    self.voteChoice = False
+                # if self.voteChoice:
+                    
+                #     self.voteChoice = False
 
                 if self.mouse_pos[0] in range(int(self.screen_size[0]/2+100+75),int(self.screen_size[0]/2+100+75+20)) and\
                     self.mouse_pos[1] in range(int(self.screen_size[1]/2-100)+y1+10, int(self.screen_size[1]/2-100)+y1+30)\
                     and click[0]==1:
-                    self.voteChoice = True
+                    # if self.choice == None:
+                    self.choice = [int(self.screen_size[0]/2+100+75),int(self.screen_size[1]/2-100)+y1+10,\
+                                    int(self.screen_size[0]/2+100+75+20),int(self.screen_size[1]/2-100)+y1+30]
+                    # elif self.choice == [int(self.screen_size[0]/2+100+75),int(self.screen_size[1]/2-100)+y1+10,\
+                    #                 int(self.screen_size[0]/2+100+75+20),int(self.screen_size[1]/2-100)+y1+30]:
+                    #     self.choice = None
+                    # else:
+                    #     self.choice = [int(self.screen_size[0]/2+100+75),int(self.screen_size[1]/2-100)+y1+10,\
+                    #                 int(self.screen_size[0]/2+100+75+20),int(self.screen_size[1]/2-100)+y1+30]
+                    # self.voteChoice = True
 
                 for key, value in element.items():
                     if key != "id" and key != "color" and key != "voterCounts"and key != "age":
@@ -87,9 +100,9 @@ class HomePage:
                 #     count = 0
                 # else:
                 y += 45
-            self.choice
         
-        print(self.voteChoice)
+        
+        # print(self.voteChoice)
 
     def sendToServer(self, message):
         try:

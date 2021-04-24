@@ -22,8 +22,10 @@ class Login:
         self.count = 0
         self.mouse_pos = None
         self.events = None
+        self.id = None # the id of the person that is making login
     
-    def run(self, events):
+    def run(self, events, id):
+        self.id = id
         self.events = events
         self.mouse_pos = pygame.mouse.get_pos()
         # draw the tittle
@@ -50,8 +52,14 @@ class Login:
                     self.sendToServer()
                 self.refreshInputsAndAtributes()
             self.active = ''
+            if self.connectionSent:
+                # request = "jsonFileName/get"
+                request = self.client.connectingToServer("voters/get")
+                self.id = request[len(request)-1]["id"]
+                return "homePage", self.id
+            else:
+                self.messageNotSentError()
 
-            return "homePage" if self.connectionSent else self.messageNotSentError()
         # show to error message in a period of time
         if self.error:
             if self.count < 550:
@@ -60,7 +68,7 @@ class Login:
                 self.error = False
                 self.count = 0
 
-        return "login"
+        return "login", self.id
 
     # checkif the user already exist
     def checkIfUserAlreadyExist(self):
@@ -100,7 +108,7 @@ class Login:
         size = pygame.font.Font.size(pygame.font.SysFont("arial", 12), "Error while making login or code/Id already exist.")
         self.screen.blit(text_surface, (self.screen_size[0]/2-size[0]/2,390))
         self.count += 1
-        return "login"
+        return "login", self.id
     
     # Method that refresh all the variable
     def refreshInputsAndAtributes(self):

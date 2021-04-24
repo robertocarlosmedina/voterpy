@@ -12,8 +12,9 @@ class Start:
         self.delay = self.highCircle  = self.count = 0
 
     # Method that control this class
-    def run(self, events):
+    def run(self, events, id):
         del events
+        del id
         size = pygame.font.Font.size(self.font, 'Voterpy')
         line = self.font.render('Voterpy', True, Color.white3.value)
         self.screen.blit(line, (self.screen_size[0]/2-size[0]/2, (self.screen_size[1]/2-size[1]/2)-40))
@@ -23,9 +24,10 @@ class Start:
         self.screen.blit(line, (self.screen_size[0]/2-size[0]/2, (self.screen_size[1]/2-size[1]/2)-10))
         
         self.animation()
+        # Controling if the process of drawing runned 6 times to pass this start page
         if self.count >= 6:    
-            return "login"
-        return "start"
+            return "login", None
+        return "start", None
 
     # Method that control the circle animation display and the time 
     def animation(self):
@@ -41,11 +43,13 @@ class Start:
                 pygame.draw.circle(self.screen, Color.green2.value, (pos_x-60, pos_y), 2)
             pos_x +=20
 
+        # Controling the delay to change the higher circle
         if self.delay >= 100:
             self.highCircle += 1
             self.delay = 0
         self.delay += 1
 
+        # COntroling the if the higher  circle is in the end to return it to the start
         if self.highCircle > 7:
             self.highCircle = 0
             self.count += 1

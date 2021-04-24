@@ -69,11 +69,11 @@ class Client:
 ## ___  Aria reserver for test's  ____
 
 # cli  = Client()
-# allData = cli.connectingToServer("voters/post name=Medina,voted=False")
-# print(allData)
-# allData = cli.connectingToServer("managers1/get")
-# allData = cli.connectingToServer("voters/getById cebdde5158594096yrMogkn")
-# print(allData)
+# # allData = cli.connectingToServer("voters/post name=Medina,voted=False")
+# # print(allData)
+# allData = cli.connectingToServer("voters/get")
+# # allData = cli.connectingToServer("voters/getById cebdde5158594096yrMogkn")
+# # print(allData)
 # [print(data) for data in allData]
 # 
 

@@ -15,13 +15,34 @@ class Start:
     def run(self, events, id):
         del events
         del id
+        # drawing tittle
         size = pygame.font.Font.size(self.font, 'Voterpy')
         line = self.font.render('Voterpy', True, Color.white3.value)
         self.screen.blit(line, (self.screen_size[0]/2-size[0]/2, (self.screen_size[1]/2-size[1]/2)-40))
-
+        # drawing sub tittle
         size = pygame.font.Font.size(self.font1, 'Voter App')
         line = self.font1.render('Voter App', True, Color.white.value)
         self.screen.blit(line, (self.screen_size[0]/2-size[0]/2, (self.screen_size[1]/2-size[1]/2)-10))
+
+        # decrement the font1 size
+        self.font1 = pygame.font.SysFont("arial", 9)
+
+        # drawing tittle bottom info
+        size = pygame.font.Font.size(self.font1, 'Made by Roberto Medina')
+        line = self.font1.render('Made by Roberto Medina', True, Color.white.value)
+        self.screen.blit(line, (self.screen_size[0]/2-size[0]/2, 430))
+        # drawing tittle bottom info
+        size = pygame.font.Font.size(self.font1, 'Contact info:')
+        line = self.font1.render('Contact info:', True, Color.white.value)
+        self.screen.blit(line, (self.screen_size[0]/2-size[0]/2, 440))
+         # drawing tittle bottom info
+        size = pygame.font.Font.size(self.font1, 'robertocarlosmedina.dev@gmail.com')
+        line = self.font1.render('email: robertocarlosmedina.dev@gmail.com', True, Color.white.value)
+        self.screen.blit(line, (self.screen_size[0]/2-size[0]/2, 450))
+         # drawing tittle bottom info
+        size = pygame.font.Font.size(self.font1, 'Github: https://github.com/RobertoCarlosMedina')
+        line = self.font1.render('Github: https://github.com/RobertoCarlosMedina', True, Color.white.value)
+        self.screen.blit(line, (self.screen_size[0]/2-size[0]/2, 460))
         
         self.animation()
         # Controling if the process of drawing runned 6 times to pass this start page

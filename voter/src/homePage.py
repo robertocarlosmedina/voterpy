@@ -8,7 +8,7 @@ class HomePage:
     client  = Client()
     def __init__(self,screen, screen_size):
         self.screen, self.screen_size = screen, screen_size
-        self.font = pygame.font.SysFont("arial", 40)
+        self.font = pygame.font.SysFont("arial", 50)
         self.font1 = pygame.font.SysFont("arial", 12)
         self.surface = pygame.Surface((500,200))
         self.surface1 = pygame.Surface((520,240))
@@ -31,11 +31,11 @@ class HomePage:
         # draw the tittle
         size = pygame.font.Font.size(self.font, 'Voterpy')
         line = self.font.render('Voterpy', True, Color.white3.value)
-        self.screen.blit(line, (self.screen_size[0]/2-size[0]/2, 20))
+        self.screen.blit(line, (self.screen_size[0]/2-size[0]/2, 40))
         # draw the sub tittle
         size = pygame.font.Font.size(self.font1, 'Voter App')
         line = self.font1.render('Voter App', True, Color.white.value)
-        self.screen.blit(line, (self.screen_size[0]/2-size[0]/2, 60))
+        self.screen.blit(line, (self.screen_size[0]/2-size[0]/2, 85))
 
         # Draw all the candidates on the screen
         self.viewCandidatesOnRegister()

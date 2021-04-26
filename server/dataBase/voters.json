@@ -1,1 +1,34 @@
-[]
+[
+    {
+        "id": "aabcbd1167669450yuvCBQa",
+        "firstName": "Roberto",
+        "lastName": "Carlos",
+        "pollCode": 312412,
+        "codeId": 123412512,
+        "voted": "True"
+    },
+    {
+        "id": "acaaac211820147758pvfqAvv",
+        "firstName": "fwqefqwef",
+        "lastName": "qwefqwe",
+        "pollCode": "fqwefqwe",
+        "codeId": 231131,
+        "voted": false
+    },
+    {
+        "id": "cibgdd315202012150Lhecdzj",
+        "firstName": "werger",
+        "lastName": "regwerg",
+        "pollCode": 341,
+        "codeId": 231423545,
+        "voted": false
+    },
+    {
+        "id": "ChIpku41442463154HzmyRoO",
+        "firstName": "refwer",
+        "lastName": "gwerg",
+        "pollCode": "wergwe",
+        "codeId": 2312,
+        "voted": "True"
+    }
+]

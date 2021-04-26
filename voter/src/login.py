@@ -56,6 +56,8 @@ class Login:
                 # request = "jsonFileName/get"
                 request = self.client.connectingToServer("voters/get")
                 self.id = request[len(request)-1]["id"]
+                self.refreshInputsAndAtributes()
+                self.connectionSent = False
                 return "homePage", self.id
             else:
                 self.messageNotSentError()
@@ -116,6 +118,7 @@ class Login:
         for key in self.inputBoxs.keys():
             self.inputBoxs[key][0] = ""
             self.inputBoxs[key][1] = False
+        
 
     # Method that connect and send the message to the server
     def sendToServer(self):

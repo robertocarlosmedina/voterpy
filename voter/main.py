@@ -1,7 +1,6 @@
 import pygame
 from pygame import *
 from support.color import Color
-from support.client import Client
 from src.login import Login
 from src.start import Start
 from src.homePage import HomePage

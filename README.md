@@ -21,10 +21,11 @@ because they where implemented by threads.
 <p></p>
 The following sub-tittle will show how execute the application: 
 ### The Front-App 
-This will open a windows whit visual interface that will allow the user to chose what app he wants to start
+
 ```shell
     $ python3 main.py
 ```
+This will open a windows whit visual interface that will allow the user to chose what app he wants to start
 ### The Server Socket,  The Manager and The Voter app
 ```shell
     $ python3 main.py server manager voter

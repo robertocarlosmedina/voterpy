@@ -11,7 +11,7 @@ class Threads(Thread):
     
     def run(self):
          # Starting the thread according to the app name sent
-        os.system(f"python3 {self.app}/main.py")
+        os.system(f"python3 {self.app}/main.py &")
 
 
 # class that will display an front interface that will allow the user to choice what app he 
@@ -51,11 +51,11 @@ class FrontApp:
         # drawing tittle
         size = pygame.font.Font.size(self.font, 'Voterpy')
         line = self.font.render('Voterpy', True, cs.white3.value)
-        self.screen.blit(line, (self.screen_size[0]/2-size[0]/2, 10))
+        self.screen.blit(line, (int(self.screen_size[0]/2-size[0]/2), 10))
         # drawing sub tittle
         size = pygame.font.Font.size(self.font1, 'Front App')
         line = self.font1.render('Front App', True, cs.white.value)
-        self.screen.blit(line, (self.screen_size[0]/2-size[0]/2, 55))
+        self.screen.blit(line, (int(self.screen_size[0]/2-size[0]/2), 55))
         # Called Method that draw the button start on the screen
         self.active = verticalButtonsDisplay(self.screen, self.button,240,(int(self.screen_size[1]/2), 250),(100, 40), self.mouse_pos,self.active,\
                                             pygame.font.SysFont("arial", 25))

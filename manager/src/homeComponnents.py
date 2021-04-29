@@ -1,3 +1,4 @@
+
 import pygame
 from support.client import Client
 from support.inputBoxs import drawInputBoxs, verifyInput
@@ -11,9 +12,11 @@ class ObjectRepresentation:
 
     def __init__(self, screen, screen_size):
         self.screen, self.screen_size = screen, screen_size
+        self.surface = pygame.Surface((400,342))
+        self.surface.fill(Color.grey1.value)
 
         # Atributes to the method newCandidateRegistration
-        self.inputBoxs = {"First Name":["", False],"Lat Name":["",False],"Age":["",False],"Color":["",False]}
+        self.inputBoxs = {"First Name":["", False],"Last Name":["",False],"Age":["",False],"Color":["",False]}
         self.registerButton = ["Register"]
         self.active = ''
         
@@ -26,7 +29,7 @@ class ObjectRepresentation:
         self.response = None
         self.count = 0
 
-    def newCandidateRegistration(self,events, mouse_pos):
+    def newCandidateRegistration(self,events, mouse_pos, refresh):
         self.events, self.mouse_pos = events, mouse_pos
         # Draw all the input box's 
         self.inputBoxs = drawInputBoxs(self.screen, self.inputBoxs,36, self.events,self.mouse_pos,150,40,(380,40),60)
@@ -36,7 +39,7 @@ class ObjectRepresentation:
         
         if self.active == "Register":
             if verifyInput(self.inputBoxs):
-                self.connectionSent = self.sendToServer(f"candidates/post firstName={self.inputBoxs['First Name'][0]},lastName={self.inputBoxs['Lat Name'][0]},\
+                self.connectionSent = self.sendToServer(f"candidates/post firstName={self.inputBoxs['First Name'][0]},lastName={self.inputBoxs['Last Name'][0]},\
 age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},voterCounts=0")
                 self.connectionMessage()
                 self.refreshInputsAndAtributes()
@@ -90,11 +93,12 @@ age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},voterCounts=0"
             self.inputBoxs[key][0] = ""
             self.inputBoxs[key][1] = False
 
-    def viewCandidatesOnRegister(self,events, mouse_pos):
+    def viewCandidatesOnRegister(self,events, mouse_pos, refresh):
         self.events, self.mouse_pos = events, mouse_pos
         # to get connect whit server just one time 
-        if type(self.response) != list or len(self.response)==0 or self.response == None:
+        if refresh:
             self.connectionSent = self.sendToServer("candidates/get")
+            self.active = False
         y, x =145,70
         count = 0
         if self.connectionSent:
@@ -122,13 +126,34 @@ age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},voterCounts=0"
                     x += 110
         return "Candidates"
 
-    def viewVotersOnRegister(self,events, mouse_pos):
+    def viewVotersOnRegister(self,events, mouse_pos, refresh):
+        self.events, self.mouse_pos = events, mouse_pos
+        # to get connect whit server just one time 
+        if refresh:
+            self.connectionSent = self.sendToServer("voters/get")
+        y, x =20,70
+        if self.connectionSent:
+            for element in self.response: # this will display the candidates on the screen according to the list
+                y1,x1=y,x
+                # click = pygame.mouse.get_pressed(3)
+                # drawing the checkbox and the box display of the candidats
+                pygame.draw.rect(self.surface, Color.green.value, pygame.Rect(self.screen_size[0]/2-325, y1, 350, 40))
+                pygame.draw.rect(self.surface, Color.grey2.value, pygame.Rect(self.screen_size[0]/2-325, y1, 350, 40),2)
+
+                for key, value in element.items(): # Drawing the candidates names on the boxes
+                    if key != "id" and key != "pollCode" and key != "codeId":
+                        text_surface = pygame.font.SysFont("arial", 15).render(str(value), True, Color.black1.value)
+                        size = pygame.font.Font.size(pygame.font.SysFont("arial", 15), str(value))
+                        self.surface.blit(text_surface, (x1+150/2-size[0]/2,y1+size[1]))
+                        x1 +=10+size[0]
+                y += 45
+        self.screen.blit(self.surface,(self.screen_size[1]/2-210, 120))
         return "Voters"
 
-    def countVotes(self,events, mouse_pos):
+    def countVotes(self,events, mouse_pos, refresh):
         return "Count Votes"
 
-    def pollInfo(self,events, mouse_pos):
+    def pollInfo(self,events, mouse_pos, refresh):
         return "Poll Info"
 
     # Method that will send the message to the server
@@ -141,3 +166,21 @@ age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},voterCounts=0"
         # if self.response!="None":
         #     self.connectionSent = bool(self.response)
         #     print(type(self.response))
+
+# class that draw the home screen
+class HomePage:
+
+    def __init__(self, screen, screen_size):
+        self.screen, self.screen_size = screen, screen_size
+        self.objt = ObjectRepresentation(screen, screen_size)
+        self.font = pygame.font.SysFont("arial", 35)
+        self.font1 = pygame.font.SysFont("arial", 11)
+        self.font2 = pygame.font.SysFont("arial", 25)
+        self.surface = pygame.Surface((230,350))
+        self.surface.fill(Color.grey3.value)
+        self.buttons = {"Register":self.objt.newCandidateRegistration,"Candidates":self.objt.viewCandidatesOnRegister,\
+                        "Voters":self.objt.viewVotersOnRegister,"Count Votes":self.objt.countVotes,"Poll Info":self.objt.pollInfo}
+        self.active = ''
+        self.mouse_pos = None
+        self.events = None
+        self.controlActive =""

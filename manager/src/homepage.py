@@ -3,6 +3,7 @@ from support.color import Color
 from src.homeComponnents import ObjectRepresentation
 from support.buttons import verticalButtonsDisplay
 
+
 # class that draw the home screen
 class HomePage:
 
@@ -19,6 +20,7 @@ class HomePage:
         self.active = ''
         self.mouse_pos = None
         self.events = None
+        self.controlActive =""
 
     # Method the control this class
     def run(self, events):
@@ -60,6 +62,9 @@ class HomePage:
                 size = pygame.font.Font.size(self.font2, key)
                 line = self.font2.render(key, True, Color.white.value)
                 self.screen.blit(line, (self.screen_size[0]/2-230-size[0]/2, 80))
-                self.active=value(self.events, self.mouse_pos)
-
-                
+                if key == self.controlActive:
+                    self.active=value(self.events, self.mouse_pos, False)
+                else:
+                    self.active=value(self.events, self.mouse_pos, True)
+                    self.controlActive = key
+                  

@@ -142,10 +142,17 @@ age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},voterCounts=0"
 
                 for key, value in element.items(): # Drawing the candidates names on the boxes
                     if key != "id" and key != "pollCode" and key != "codeId":
-                        text_surface = pygame.font.SysFont("arial", 15).render(str(value), True, Color.black1.value)
-                        size = pygame.font.Font.size(pygame.font.SysFont("arial", 15), str(value))
-                        self.surface.blit(text_surface, (x1+150/2-size[0]/2,y1+size[1]))
+                        if key == "firstName" or key == "lastName":
+                            text_surface = pygame.font.SysFont("arial", 15).render(str(value).capitalize(), True, Color.black1.value)
+                            size = pygame.font.Font.size(pygame.font.SysFont("arial", 15), str(value).capitalize())
+                            self.surface.blit(text_surface, (x1+150/2-100,y1+size[1]))
+                        
+                        else:
+                            text_surface = pygame.font.SysFont("arial", 15).render("State: "+str(value).capitalize(), True, Color.black1.value)
+                            size = pygame.font.Font.size(pygame.font.SysFont("arial", 15), "State: "+str(value).capitalize())
+                            self.surface.blit(text_surface, (x+150/2+120,y1+size[1]))
                         x1 +=10+size[0]
+
                 y += 45
         self.screen.blit(self.surface,(self.screen_size[1]/2-210, 120))
         return "Voters"

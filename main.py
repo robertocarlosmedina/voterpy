@@ -11,7 +11,7 @@ class Threads(Thread):
     
     def run(self):
          # Starting the thread according to the app name sent
-        os.system(f"python3 {self.app}/main.py &")
+        os.system(f"python3 {self.app}/main.py")
 
 
 # class that will display an front interface that will allow the user to choice what app he 

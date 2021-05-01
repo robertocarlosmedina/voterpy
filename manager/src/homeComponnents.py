@@ -12,13 +12,16 @@ class ObjectRepresentation:
 
     def __init__(self, screen, screen_size):
         self.screen, self.screen_size = screen, screen_size
-        self.surface = pygame.Surface((400,342))
+        self.surface = pygame.Surface((400,315))
         self.surface.fill(Color.grey1.value)
 
         # Atributes to the method newCandidateRegistration
         self.inputBoxs = {"First Name":["", False],"Last Name":["",False],"Age":["",False],"Color":["",False]}
         self.registerButton = ["Register"]
         self.active = ''
+
+        # scroll to what the display
+        self.y_scroll = 0
         
         self.connectionSent = False
         self.error = self.success = False
@@ -131,30 +134,41 @@ age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},voterCounts=0"
         # to get connect whit server just one time 
         if refresh:
             self.connectionSent = self.sendToServer("voters/get")
-        y, x =20,70
+        y, x =25,70
+        count = 0
         if self.connectionSent:
             for element in self.response: # this will display the candidates on the screen according to the list
                 y1,x1=y,x
                 # click = pygame.mouse.get_pressed(3)
                 # drawing the checkbox and the box display of the candidats
-                pygame.draw.rect(self.surface, Color.green.value, pygame.Rect(self.screen_size[0]/2-325, y1, 350, 40))
-                pygame.draw.rect(self.surface, Color.grey2.value, pygame.Rect(self.screen_size[0]/2-325, y1, 350, 40),2)
+                pygame.draw.rect(self.surface, Color.green.value, pygame.Rect(self.screen_size[0]/2-325, y1-self.y_scroll, 350, 40))
+                pygame.draw.rect(self.surface, Color.grey2.value, pygame.Rect(self.screen_size[0]/2-325, y1-self.y_scroll, 350, 40),2)
 
                 for key, value in element.items(): # Drawing the candidates names on the boxes
                     if key != "id" and key != "pollCode" and key != "codeId":
                         if key == "firstName" or key == "lastName":
                             text_surface = pygame.font.SysFont("arial", 15).render(str(value).capitalize(), True, Color.black1.value)
                             size = pygame.font.Font.size(pygame.font.SysFont("arial", 15), str(value).capitalize())
-                            self.surface.blit(text_surface, (x1+150/2-100,y1+size[1]))
+                            self.surface.blit(text_surface, (x1+150/2-100,y1+size[1]-self.y_scroll))
                         
                         else:
                             text_surface = pygame.font.SysFont("arial", 15).render("State: "+str(value).capitalize(), True, Color.black1.value)
                             size = pygame.font.Font.size(pygame.font.SysFont("arial", 15), "State: "+str(value).capitalize())
-                            self.surface.blit(text_surface, (x+150/2+120,y1+size[1]))
+                            self.surface.blit(text_surface, (x+150/2+120,y1+size[1]-self.y_scroll))
                         x1 +=10+size[0]
-
                 y += 45
-        self.screen.blit(self.surface,(self.screen_size[1]/2-210, 120))
+                if count > 4:
+                    break
+                count +=1
+        self.screen.blit(self.surface,(self.screen_size[1]/2-210, 145))
+        # top navegate button
+        pygame.draw.polygon(self.screen, Color.grey3.value, ((200, 155), (240, 125), (280, 155)))
+        pygame.draw.polygon(self.screen, Color.white.value, ((200, 155), (240, 125), (280, 155)), 3)
+        # botttom navegate button
+        pygame.draw.polygon(self.screen, Color.grey3.value, ((200, 450), (240, 480), (280, 450)))
+        pygame.draw.polygon(self.screen, Color.white.value, ((200, 450), (240, 480), (280, 450)), 3)
+
+
         return "Voters"
 
     def countVotes(self,events, mouse_pos, refresh):

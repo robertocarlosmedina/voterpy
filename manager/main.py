@@ -1,5 +1,5 @@
 import pygame
-from pygame import *
+from pygame.locals import *
 
 from support.color import Color
 from support.client import Client
@@ -27,11 +27,11 @@ events = None
 while True:
     events = pygame.event.get()
     for event in events:
-        if event.type == QUIT:
+        if event.type == pygame.QUIT:
             exit()
 
         elif event.type == pygame.KEYDOWN:
-            if pygame.key.get_pressed()[K_KP_ENTER]:
+            if pygame.key.get_pressed()[pygame.K_KP_ENTER]:
                 exit()
             # print (event.unicode)
 

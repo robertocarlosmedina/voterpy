@@ -14,6 +14,7 @@ class Color(Enum):
     green1 = (70, 115, 2)
     green2=(116, 166, 10)
     green3=(136, 191, 17)
+    black=(0,0,0)
     black1=(25, 25, 25)
     black2=(0, 1, 13)
     grey=(105, 105, 105)

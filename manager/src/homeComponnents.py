@@ -31,7 +31,7 @@ class ObjectRepresentation:
         self.mouse_pos = None
         self.response = None
         self.count = 0
-        self.page = 0
+        self.page = 1
 
     def newCandidateRegistration(self,events, mouse_pos, refresh):
         self.events, self.mouse_pos = events, mouse_pos
@@ -97,7 +97,7 @@ age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},voterCounts=0"
             self.inputBoxs[key][0] = ""
             self.inputBoxs[key][1] = False
 
-    def viewCandidatesOnRegister(self,events, mouse_pos, refresh):
+    def viewCandidatesOnRegister(self,events, mouse_pos, refresh=None):
         self.events, self.mouse_pos = events, mouse_pos
         # to get connect whit server just one time 
         if refresh:
@@ -133,6 +133,7 @@ age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},voterCounts=0"
 
     # Method that will display all the voters that participate on the screen
     def viewVotersOnRegister(self,events, mouse_pos, refresh):
+        slideArrows = [((220, 155), (240, 135), (260, 155)), ((220, 450), (240, 470), (260, 450))]
         self.events, self.mouse_pos = events, mouse_pos
         # to get connect whit server just one time 
         if refresh:
@@ -173,14 +174,29 @@ age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},voterCounts=0"
                 count +=1 
 
         self.screen.blit(self.surface,(self.screen_size[1]/2-210, 145))
-        # top navegate button
-        pygame.draw.polygon(self.screen, Color.grey3.value, ((210, 155), (240, 125), (270, 155)))
-        pygame.draw.polygon(self.screen, Color.white.value, ((210, 155), (240, 125), (270, 155)), 3)
-        # botttom navegate button
-        pygame.draw.polygon(self.screen, Color.grey3.value, ((210, 450), (240, 480), (270, 450)))
-        pygame.draw.polygon(self.screen, Color.white.value, ((210, 450), (240, 480), (270, 450)), 3)
-
-
+        # ______ Top and bottom navegate button (arrow) display ___
+        count = 0
+        delay = True # to an delay while pressing the button
+        for arrow in slideArrows:
+            if (mouse_pos[0]in range(arrow[0][0], arrow[2][0]) and (mouse_pos[1]in range(arrow[0][1], arrow[1][1])or\
+                mouse_pos[1]in range(arrow[1][1], arrow[0][1]))): # checking if mouse is over them to draw them whit defferent color
+                # checking if the mouse is pressed to change the slide page
+                if pygame.mouse.get_pressed()[0]:
+                    pygame.draw.polygon(self.screen, Color.grey1.value, arrow)
+                    pygame.draw.polygon(self.screen, Color.black.value, arrow, 3)
+                    if count == 0 and self.page > 0 and delay: # check if it is not in the first page to decrement the page
+                        self.page -= 1
+                    # check if it is not in the last page to increment the page
+                    elif count == 1 and self.page <= math.floor(len(self.response)-1/6) and delay:
+                        self.page += 1
+                    delay = False
+                else:
+                    pygame.draw.polygon(self.screen, Color.green1.value, arrow)
+                    pygame.draw.polygon(self.screen, Color.black.value, arrow, 3)
+            else:
+                pygame.draw.polygon(self.screen, Color.grey3.value, arrow)
+                pygame.draw.polygon(self.screen, Color.white.value, arrow, 3)
+            count += 1
         return "Voters"
 
     def countVotes(self,events, mouse_pos, refresh):

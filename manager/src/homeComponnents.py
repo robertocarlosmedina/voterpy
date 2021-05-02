@@ -1,9 +1,9 @@
-
 import pygame
 from support.client import Client
 from support.inputBoxs import drawInputBoxs, verifyInput
 from support.buttons import verticalButtonsDisplay
 from support.color import Color
+import math
 
 
 # Class data will facilitade the iteration whit the program and the server's data'bases
@@ -31,6 +31,7 @@ class ObjectRepresentation:
         self.mouse_pos = None
         self.response = None
         self.count = 0
+        self.page = 0
 
     def newCandidateRegistration(self,events, mouse_pos, refresh):
         self.events, self.mouse_pos = events, mouse_pos
@@ -110,6 +111,7 @@ age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},voterCounts=0"
                 pygame.draw.rect(self.screen, Color.green.value, pygame.Rect(x1, y1, 100, 100))
                 pygame.draw.rect(self.screen, Color.grey1.value, pygame.Rect(x1, y1, 100, 100),2)
                 # pygame.draw.rect(self.screen, Color.white.value, pygame.Rect(x1+2, y1+2, 98, 98),2)
+                
                 for key, value in element.items():
                     if key != "id" and key != "color" and key != "voterCounts":
                         if key == "age":
@@ -129,6 +131,7 @@ age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},voterCounts=0"
                     x += 110
         return "Candidates"
 
+    # Method that will display all the voters that participate on the screen
     def viewVotersOnRegister(self,events, mouse_pos, refresh):
         self.events, self.mouse_pos = events, mouse_pos
         # to get connect whit server just one time 
@@ -136,37 +139,46 @@ age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},voterCounts=0"
             self.connectionSent = self.sendToServer("voters/get")
         y, x =25,70
         count = 0
+        votersDisplayed = 0
         if self.connectionSent:
             for element in self.response: # this will display the candidates on the screen according to the list
                 y1,x1=y,x
                 # click = pygame.mouse.get_pressed(3)
-                # drawing the checkbox and the box display of the candidats
-                pygame.draw.rect(self.surface, Color.green.value, pygame.Rect(self.screen_size[0]/2-325, y1-self.y_scroll, 350, 40))
-                pygame.draw.rect(self.surface, Color.grey2.value, pygame.Rect(self.screen_size[0]/2-325, y1-self.y_scroll, 350, 40),2)
+                # This is to control the pagination of the data
+                pagecontrol = math.floor(count/6)
 
-                for key, value in element.items(): # Drawing the candidates names on the boxes
-                    if key != "id" and key != "pollCode" and key != "codeId":
-                        if key == "firstName" or key == "lastName":
-                            text_surface = pygame.font.SysFont("arial", 15).render(str(value).capitalize(), True, Color.black1.value)
-                            size = pygame.font.Font.size(pygame.font.SysFont("arial", 15), str(value).capitalize())
-                            self.surface.blit(text_surface, (x1+150/2-100,y1+size[1]-self.y_scroll))
-                        
-                        else:
-                            text_surface = pygame.font.SysFont("arial", 15).render("State: "+str(value).capitalize(), True, Color.black1.value)
-                            size = pygame.font.Font.size(pygame.font.SysFont("arial", 15), "State: "+str(value).capitalize())
-                            self.surface.blit(text_surface, (x+150/2+120,y1+size[1]-self.y_scroll))
-                        x1 +=10+size[0]
-                y += 45
-                if count > 4:
+                if pagecontrol < 0: # to turn the value a positive one
+                    pagecontrol = 0
+
+                if pagecontrol==self.page:
+                    # drawing the checkbox and the box display of the candidats
+                    pygame.draw.rect(self.surface, Color.green.value, pygame.Rect(self.screen_size[0]/2-325, y1-self.y_scroll, 350, 40))
+                    pygame.draw.rect(self.surface, Color.grey2.value, pygame.Rect(self.screen_size[0]/2-325, y1-self.y_scroll, 350, 40),2)
+                    for key, value in element.items(): # Drawing the candidates names on the boxes
+                        if key != "id" and key != "pollCode" and key != "codeId":
+                            if key == "firstName" or key == "lastName":
+                                text_surface = pygame.font.SysFont("arial", 15).render(str(value).capitalize(), True, Color.black1.value)
+                                size = pygame.font.Font.size(pygame.font.SysFont("arial", 15), str(value).capitalize())
+                                self.surface.blit(text_surface, (x1+150/2-100,y1+size[1]-self.y_scroll))
+
+                            else:
+                                text_surface = pygame.font.SysFont("arial", 15).render("State: "+str(value).capitalize(), True, Color.black1.value)
+                                size = pygame.font.Font.size(pygame.font.SysFont("arial", 15), "State: "+str(value).capitalize())
+                                self.surface.blit(text_surface, (x+150/2+120,y1+size[1]-self.y_scroll))
+                            x1 +=10+size[0]
+                    y += 45     
+                    votersDisplayed +=1
+                if votersDisplayed > 5:
                     break
-                count +=1
+                count +=1 
+
         self.screen.blit(self.surface,(self.screen_size[1]/2-210, 145))
         # top navegate button
-        pygame.draw.polygon(self.screen, Color.grey3.value, ((200, 155), (240, 125), (280, 155)))
-        pygame.draw.polygon(self.screen, Color.white.value, ((200, 155), (240, 125), (280, 155)), 3)
+        pygame.draw.polygon(self.screen, Color.grey3.value, ((210, 155), (240, 125), (270, 155)))
+        pygame.draw.polygon(self.screen, Color.white.value, ((210, 155), (240, 125), (270, 155)), 3)
         # botttom navegate button
-        pygame.draw.polygon(self.screen, Color.grey3.value, ((200, 450), (240, 480), (280, 450)))
-        pygame.draw.polygon(self.screen, Color.white.value, ((200, 450), (240, 480), (280, 450)), 3)
+        pygame.draw.polygon(self.screen, Color.grey3.value, ((210, 450), (240, 480), (270, 450)))
+        pygame.draw.polygon(self.screen, Color.white.value, ((210, 450), (240, 480), (270, 450)), 3)
 
 
         return "Voters"
@@ -188,20 +200,3 @@ age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},voterCounts=0"
         #     self.connectionSent = bool(self.response)
         #     print(type(self.response))
 
-# class that draw the home screen
-class HomePage:
-
-    def __init__(self, screen, screen_size):
-        self.screen, self.screen_size = screen, screen_size
-        self.objt = ObjectRepresentation(screen, screen_size)
-        self.font = pygame.font.SysFont("arial", 35)
-        self.font1 = pygame.font.SysFont("arial", 11)
-        self.font2 = pygame.font.SysFont("arial", 25)
-        self.surface = pygame.Surface((230,350))
-        self.surface.fill(Color.grey3.value)
-        self.buttons = {"Register":self.objt.newCandidateRegistration,"Candidates":self.objt.viewCandidatesOnRegister,\
-                        "Voters":self.objt.viewVotersOnRegister,"Count Votes":self.objt.countVotes,"Poll Info":self.objt.pollInfo}
-        self.active = ''
-        self.mouse_pos = None
-        self.events = None
-        self.controlActive =""

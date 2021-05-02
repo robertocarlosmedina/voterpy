@@ -18,6 +18,8 @@ class ObjectRepresentation:
         # Atributes to the method newCandidateRegistration
         self.inputBoxs = {"First Name":["", False],"Last Name":["",False],"Age":["",False],"Color":["",False]}
         self.registerButton = ["Register"]
+        self.countButton = ["Count votes"]
+        self.counted = False
         self.active = ''
 
         # scroll to what the display
@@ -31,7 +33,7 @@ class ObjectRepresentation:
         self.mouse_pos = None
         self.response = None
         self.count = 0
-        self.page = 1
+        self.page = 0
 
     def newCandidateRegistration(self,events, mouse_pos, refresh):
         self.events, self.mouse_pos = events, mouse_pos
@@ -199,7 +201,23 @@ age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},voterCounts=0"
             count += 1
         return "Voters"
 
+    # Method that will draw a graphic
+    def drawGraph(self):
+        pass
     def countVotes(self,events, mouse_pos, refresh):
+        self.events, self.mouse_pos = events, mouse_pos
+        # Called Method that draw the button on the screen
+        if not self.counted:
+            self.active = verticalButtonsDisplay(self.screen, self.countButton,250,(145, 263),(180, 50), self.mouse_pos,self.active,\
+             pygame.font.SysFont("arial", 25))
+            if self.active != '':
+                self.counted = not self.counted
+        else:
+            # to get connect whit server just one time and get all the data
+            if refresh:
+                self.connectionSent = self.sendToServer("candidates/get")
+                self.active = ''
+
         return "Count Votes"
 
     def pollInfo(self,events, mouse_pos, refresh):

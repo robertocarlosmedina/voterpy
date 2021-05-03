@@ -11,7 +11,10 @@ class Threads(Thread):
     
     def run(self):
          # Starting the thread according to the app name sent
-        os.system(f"python3 {self.app}/main.py")
+        if self.app != "server":
+            os.system(f"python3 {self.app}/main.py &")
+        else:
+            os.system(f"python3 {self.app}/main.py")
 
 
 # class that will display an front interface that will allow the user to choice what app he 
@@ -82,7 +85,7 @@ if len(sys.argv)>1:
 # If not the program will open a windows that will allow you two chose the app that will be started
 else:
     # The import 
-    # I'm importing them where because if we did not use them there is no need to have them import
+    # I'm importing them where because if we did not use them there is no need to have them import at the top
     import pygame
     from pygame.locals import *
     from support.color import Color as cs

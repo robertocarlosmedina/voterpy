@@ -22,11 +22,9 @@ class ObjectRepresentation:
         self.counted = False
         self.active = ''
 
-        # scroll to what the display
-        self.y_scroll = 0
-        
         self.connectionSent = False
         self.error = self.success = False
+        self.nrVoters = 0 # the number of voters that acces the poll
 
         # Method relative to the class
         self.events = None
@@ -36,6 +34,7 @@ class ObjectRepresentation:
         self.page = 0
         self.delay = 0 # to an delay while pressing the button
 
+    # Method that will allow to make a new candidate register
     def newCandidateRegistration(self,events, mouse_pos, refresh):
         self.events, self.mouse_pos = events, mouse_pos
         # Draw all the input box's 
@@ -59,7 +58,7 @@ age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},voterCounts=0"
         else:
             return "Register"
 
-     # Method that support while controling the reponse success
+    # Method that support while controling the reponse success
     def supportToBlitErrorAndSuccessMessage(self):
         # if error sending message
         if self.error:
@@ -100,6 +99,7 @@ age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},voterCounts=0"
             self.inputBoxs[key][0] = ""
             self.inputBoxs[key][1] = False
 
+    # Method that will show all the poll candidate on the screen
     def viewCandidatesOnRegister(self,events, mouse_pos, refresh=None):
         self.events, self.mouse_pos = events, mouse_pos
         # to get connect whit server just one time 
@@ -136,7 +136,6 @@ age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},voterCounts=0"
 
     # Method that will display all the voters that participate on the screen
     def viewVotersOnRegister(self,events, mouse_pos, refresh):
-        
         self.events, self.mouse_pos = events, mouse_pos
         # to get connect whit server just one time 
         if refresh:
@@ -175,10 +174,10 @@ age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},voterCounts=0"
                 if votersDisplayed > 5:
                     break
                 count +=1 
-
         self.screen.blit(self.surface,(self.screen_size[1]/2-210, 145))
         self.drawArrows() # Method that will draw the arrows
         return "Voters"
+
     # Method that will draw the arrow button on the screen
     def drawArrows(self):
         # ______ Top and bottom navegate button (arrow) display ___
@@ -211,6 +210,15 @@ age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},voterCounts=0"
     # Method that will draw a graphic
     def drawGraph(self):
         pass
+
+    # Method tha count the voters that participate
+    def determineNrVoters(self):
+        voters= self.connectionSent = self.sendToServer("voters/get")
+        for _ in voters:
+            self.nrVoters += 1
+        del voters
+
+    # Method that will show the result of the poll
     def countVotes(self,events, mouse_pos, refresh):
         self.events, self.mouse_pos = events, mouse_pos
         # Called Method that draw the button on the screen
@@ -224,9 +232,14 @@ age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},voterCounts=0"
             if refresh:
                 self.connectionSent = self.sendToServer("candidates/get")
                 self.active = ''
+                if self.nrVoters == 0: # count all the voters if not already counted
+                    self.determineNrVoters() 
+
+            self.drawGraph() # draw the graph lines.
 
         return "Count Votes"
 
+    # Method that will show the poll info
     def pollInfo(self,events, mouse_pos, refresh):
         return "Poll Info"
 

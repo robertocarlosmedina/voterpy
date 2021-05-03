@@ -34,6 +34,7 @@ class ObjectRepresentation:
         self.response = None
         self.count = 0
         self.page = 0
+        self.delay = 0 # to an delay while pressing the button
 
     def newCandidateRegistration(self,events, mouse_pos, refresh):
         self.events, self.mouse_pos = events, mouse_pos
@@ -178,7 +179,7 @@ age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},voterCounts=0"
         self.screen.blit(self.surface,(self.screen_size[1]/2-210, 145))
         # ______ Top and bottom navegate button (arrow) display ___
         count = 0
-        delay = True # to an delay while pressing the button
+        
         for arrow in slideArrows:
             if (mouse_pos[0]in range(arrow[0][0], arrow[2][0]) and (mouse_pos[1]in range(arrow[0][1], arrow[1][1])or\
                 mouse_pos[1]in range(arrow[1][1], arrow[0][1]))): # checking if mouse is over them to draw them whit defferent color
@@ -186,11 +187,13 @@ age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},voterCounts=0"
                 if pygame.mouse.get_pressed()[0]:
                     pygame.draw.polygon(self.screen, Color.grey1.value, arrow)
                     pygame.draw.polygon(self.screen, Color.black.value, arrow, 3)
-                    if count == 0 and self.page > 0 and delay: # check if it is not in the first page to decrement the page
+                    if count == 0 and self.page > 0 and self.delay > 30: # check if it is not in the first page to decrement the page
                         self.page -= 1
+                        self.delay = 0;
                     # check if it is not in the last page to increment the page
-                    elif count == 1 and self.page <= math.floor(len(self.response)-1/6) and delay:
+                    elif count == 1 and self.page <= math.floor(len(self.response)-1/6) and self.delay>30:
                         self.page += 1
+                        self.delay =0
                     delay = False
                 else:
                     pygame.draw.polygon(self.screen, Color.green1.value, arrow)
@@ -199,6 +202,7 @@ age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},voterCounts=0"
                 pygame.draw.polygon(self.screen, Color.grey3.value, arrow)
                 pygame.draw.polygon(self.screen, Color.white.value, arrow, 3)
             count += 1
+        self.delay +=1
         return "Voters"
 
     # Method that will draw a graphic

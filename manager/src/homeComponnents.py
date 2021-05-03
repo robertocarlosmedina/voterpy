@@ -136,7 +136,7 @@ age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},voterCounts=0"
 
     # Method that will display all the voters that participate on the screen
     def viewVotersOnRegister(self,events, mouse_pos, refresh):
-        slideArrows = [((220, 155), (240, 135), (260, 155)), ((220, 450), (240, 470), (260, 450))]
+        
         self.events, self.mouse_pos = events, mouse_pos
         # to get connect whit server just one time 
         if refresh:
@@ -177,12 +177,16 @@ age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},voterCounts=0"
                 count +=1 
 
         self.screen.blit(self.surface,(self.screen_size[1]/2-210, 145))
+        self.drawArrows() # Method that will draw the arrows
+        return "Voters"
+    # Method that will draw the arrow button on the screen
+    def drawArrows(self):
         # ______ Top and bottom navegate button (arrow) display ___
+        slideArrows = [((220, 155), (240, 135), (260, 155)), ((220, 450), (240, 470), (260, 450))]
         count = 0
-        
         for arrow in slideArrows:
-            if (mouse_pos[0]in range(arrow[0][0], arrow[2][0]) and (mouse_pos[1]in range(arrow[0][1], arrow[1][1])or\
-                mouse_pos[1]in range(arrow[1][1], arrow[0][1]))): # checking if mouse is over them to draw them whit defferent color
+            if (self.mouse_pos[0]in range(arrow[0][0], arrow[2][0]) and (self.mouse_pos[1]in range(arrow[0][1], arrow[1][1])or\
+                self.mouse_pos[1]in range(arrow[1][1], arrow[0][1]))): # checking if mouse is over them to draw them whit defferent color
                 # checking if the mouse is pressed to change the slide page
                 if pygame.mouse.get_pressed()[0]:
                     pygame.draw.polygon(self.screen, Color.grey1.value, arrow)
@@ -203,7 +207,6 @@ age={self.inputBoxs['Age'][0]},color={self.inputBoxs['Color'][0]},voterCounts=0"
                 pygame.draw.polygon(self.screen, Color.white.value, arrow, 3)
             count += 1
         self.delay +=1
-        return "Voters"
 
     # Method that will draw a graphic
     def drawGraph(self):

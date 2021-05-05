@@ -1,6 +1,10 @@
 import sys
 import os
 from threading import Thread
+import pygame
+from pygame.locals import *
+from support.color import Color as cs
+from support.buttons import verticalButtonsDisplay  
 
 
 # Thread apps that will allow multiple apps to be executed
@@ -26,12 +30,19 @@ class FrontApp:
         self.screen = pygame.display.set_mode(self.screen_size)
         self.font = pygame.font.SysFont("arial", 50)
         self.font1 = pygame.font.SysFont("arial", 12)
-        self.button = ["Start"]
+        self.button = [ "Server","Voter App","Manager App"]# this are the buttons related to the apps
+        self.appsOpen = []
         self.active = ""
+        self.delay = 0
         self.events = self.mouse_pos = None
-        self.subApps = {"voterApp":False, "server":False,"managerApp":False}
 
         pygame.display.set_caption("Voterpy")
+
+    # Methof that will start the app chosen
+    def startApp(self, app):
+        if app not in self.appsOpen:
+            os.system(f"python3 {app}/main.py &")
+            self.appsOpen.append(app)
 
     def run(self):
         # The cicle of the fronty application
@@ -39,11 +50,11 @@ class FrontApp:
             self.mouse_pos = pygame.mouse.get_pos()
             self.events = pygame.event.get()
             for event in self.events:
-                if event.type == QUIT:
+                if event.type == pygame.QUIT:
                     exit()
 
                 elif event.type == pygame.KEYDOWN:
-                    if pygame.key.get_pressed()[K_KP_ENTER]:
+                    if pygame.key.get_pressed()[pygame.K_KP_ENTER]:
                         exit()
             self.screen.fill(cs.grey3.value)
             self.draw()
@@ -60,16 +71,23 @@ class FrontApp:
         line = self.font1.render('Front App', True, cs.white.value)
         self.screen.blit(line, (int(self.screen_size[0]/2-size[0]/2), 55))
         # Called Method that draw the button start on the screen
-        self.active = verticalButtonsDisplay(self.screen, self.button,240,(int(self.screen_size[1]/2), 250),(100, 40), self.mouse_pos,self.active,\
-                                            pygame.font.SysFont("arial", 25))
+        self.active = verticalButtonsDisplay(self.screen, self.button,100,(int(self.screen_size[0]/2)-100, 110),(200, 40), self.mouse_pos,self.active,\
+                                            pygame.font.SysFont("arial", 20))
+        if self.active != '': # to check if the user chose one app to start
+            self.startApp(self.active.split(" ")[0].lower())
+            self.active = ''
+            self.delay = 0
+        
+        if self.delay > 200: # to refresh the apps open
+            self.display = 0
+            self.appsOpen = []
+        self.delay += 1
+        
+        # drawinghelp message
+        size = pygame.font.Font.size(pygame.font.SysFont("arial", 15), 'Chose the app you wanna start and click on it.')
+        line = pygame.font.SysFont("arial", 15).render('Chose the app you wanna start and click on it.', True, cs.white.value)
+        self.screen.blit(line, (int(self.screen_size[0]/2-size[0]/2), 255))
 
-    # Method that will draw the check box of the app in this project on the screen
-    def checkBox(self):
-        pass
-
-    # Method that will run the application according to the selected checkbox
-    def openApps(self):
-        pass
 
 # __________________________ Start Mode control ____________________________
 # Note: the start mode is according to the atributes specifyed on the program execution 
@@ -84,13 +102,6 @@ if len(sys.argv)>1:
 
 # If not the program will open a windows that will allow you two chose the app that will be started
 else:
-    # The import 
-    # I'm importing them where because if we did not use them there is no need to have them import at the top
-    import pygame
-    from pygame.locals import *
-    from support.color import Color as cs
-    from support.buttons import verticalButtonsDisplay  
-
     # Interface of the front-app manager
     pygame.init()
     app = FrontApp()

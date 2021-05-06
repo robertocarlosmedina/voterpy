@@ -78,7 +78,7 @@ class FrontApp:
             self.active = ''
             self.delay = 0
         
-        if self.delay > 200: # to refresh the apps open
+        if self.delay > 250: # to refresh the apps open
             self.display = 0
             self.appsOpen = []
         self.delay += 1

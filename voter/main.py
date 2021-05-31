@@ -34,6 +34,5 @@ while True:
 
     screen.fill(Color.grey4.value)
     current_layout, id = links[current_layout].run(events, id)
-    # print(current_layout)
     # clock.tick(60)
     pygame.display.update()

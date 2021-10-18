@@ -51,4 +51,4 @@ This project implement the [Contributor Covenant Code of Conduct](https://github
 ## MIT Licence
 This projet implement the [MIT Licence](https://github.com/RobertoCarlosMedina/voter-app/blob/main/LICENSE), please read it before use this project.
 
-Copyright (c) 2021 Roberto Carlos
+Copyright © 2021 Roberto Carlos
